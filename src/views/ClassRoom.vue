@@ -1,10 +1,10 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="9">
+      <v-col cols="8">
         <img src="../assets/ClassVideo.png">
       </v-col>
-      <v-col cols="3">
+      <v-col cols="4">
         <v-row>
           <video></video>
         </v-row>

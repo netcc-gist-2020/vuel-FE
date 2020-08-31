@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="seats">
     <v-row justify="center">
-      <Avatar v-for="guest in guests" :key="guest['name']" :option="guest" />
+      <AvatarDummy v-for="guest in guests" :key="guest['name']" :index="guest" />
       <v-row justify="end" align="end" class="desk">
           <v-btn class="ma-3"> MUTE </v-btn>
           <v-btn class="ma-3"> AUTH </v-btn>
@@ -13,15 +13,19 @@
 </template>
 
 <script>
-import Avatar from '@/components/Avatar'
+// import Avatar from '@/components/Avatar'
+import AvatarDummy from '@/components/AvatarDummy'
 
 export default {
   name: 'Seats',
   components: {
-    Avatar
+    // Avatar
+    AvatarDummy
   },
 
   data: () => ({
+    guests: [1, 2, 3, 4, 5]
+    /*
     guests: [
       {
         name: 'Changa Lee',
@@ -54,6 +58,7 @@ export default {
         eyes: 2
       }
     ]
+    */
   })
 }
 </script>
@@ -64,12 +69,14 @@ export default {
   position: relative;
   border-radius: 30px;
   overflow: hidden;
+  min-height: 280px;
 }
 .desk {
   position: absolute;
   bottom: 0;
+  margin: auto;
   width: 100%;
-  height: 80px;
+  height: 100px;
   background: #CCB099;
 }
 
