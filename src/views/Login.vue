@@ -1,10 +1,16 @@
 <template>
-  <v-content>
-    <h1>LOGIN</h1>
-    <LoginFace v-if="isLoginFace"/>
-    <LoginPassword v-else/>
-
-    <router-link to="mypage">goto mypage</router-link>
+  <v-content fluid>
+    <v-row
+      align="center"
+      justify="center"
+    >
+      <h1>LOGIN</h1>
+    </v-row>
+    <v-spacer></v-spacer>
+    <v-row>
+      <LoginFace v-if="isLoginFace"/>
+      <LoginPassword v-else/>
+    </v-row>
   </v-content>
 </template>
 

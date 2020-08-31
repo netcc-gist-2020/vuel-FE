@@ -1,13 +1,34 @@
 <template>
-  <v-content>
-    <video></video>
-    <v-btn>
-      LOGIN
-    </v-btn>
-    <v-btn @click="disableLoginFace">
-      LOGIN WITH ID&PW
-    </v-btn>
-  </v-content>
+  <v-container>
+    <v-row
+      align="center"
+      justify="center"
+    >
+      <video></video>
+    </v-row>
+
+    <v-spacer></v-spacer>
+
+    <v-row
+      align="center"
+      justify="center"
+    >
+      <v-btn>
+        <router-link to="mypage">LOGIN</router-link>
+      </v-btn>
+    </v-row>
+
+    <v-spacer></v-spacer>
+
+    <v-row
+      align="center"
+      justify="center"
+    >
+      <v-btn @click="disableLoginFace">
+        LOGIN WITH ID&PW
+      </v-btn>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -35,3 +56,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+video {
+  width: 320px;
+  height: 320px;
+}
+</style>
