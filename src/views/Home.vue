@@ -14,15 +14,21 @@
         </v-btn>
       </v-row>
 
+      <v-row>
+        <Avatar/>
+      </v-row>
+
   </div>
 </template>
 
 <script>
+import Avatar from '@/components/Avatar'
 // @ is an alias to /src
 
 export default {
   name: 'Home',
   components: {
+    Avatar
   },
   mounted () {
     this.$store.state.isLoginFace = true

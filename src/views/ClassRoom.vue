@@ -1,5 +1,15 @@
 <template>
-  <div class="about">
-    <h1>This is an classroom page</h1>
-  </div>
+  <v-container>
+    <v-row></v-row>
+    <v-row></v-row>
+  </v-container>
 </template>
+
+<script>
+export default {
+  name: 'ClassRoom'
+}
+</script>
+
+<style>
+</style>
