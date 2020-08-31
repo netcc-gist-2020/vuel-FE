@@ -23,6 +23,9 @@
 export default {
   name: 'Home',
   components: {
+  },
+  mounted () {
+    this.$store.state.isLoginFace = true
   }
 }
 </script>
