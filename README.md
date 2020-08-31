@@ -10,6 +10,11 @@ yarn install
 yarn serve
 ```
 
+### Serve with Electron
+```
+yarn electron:serve
+```
+
 ### Compiles and minifies for production
 ```
 yarn build
