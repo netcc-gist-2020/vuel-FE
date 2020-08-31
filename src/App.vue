@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <router-link to="/">home</router-link>
+      <!--<router-link to="/">home</router-link>-->
       <router-view></router-view>
     </v-main>
   </v-app>

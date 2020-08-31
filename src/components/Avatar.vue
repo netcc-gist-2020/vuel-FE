@@ -1,15 +1,15 @@
 <template>
   <div class="avatar">
     <div class="crop body">
-      <img :style="getStyle('body', options['body'])" src="../assets/avatar/bodies/Bodies.png" />
+      <img :style="getStyle('body', option['body'])" src="../assets/avatar/bodies/Bodies.png" />
     </div>
 
     <div class="crop eyes">
-      <img :style="getStyle('eyes', options['eyes'])" src="../assets/avatar/bodies/Eyes.png" />
+      <img :style="getStyle('eyes', option['eyes'])" src="../assets/avatar/bodies/Eyes.png" />
     </div>
 
     <div class="crop tee">
-      <img :style="getStyle('tee', options['tee'])"  src="../assets/avatar/clothes/Tee.png" />
+      <img :style="getStyle('tee', option['tee'])"  src="../assets/avatar/clothes/Tee.png" />
     </div>
 
   </div>
@@ -19,12 +19,11 @@
 export default {
   name: 'Avatar',
 
+  props: {
+    option: Object
+  },
+
   data: () => ({
-    options: {
-      tee: 2,
-      body: 2,
-      eyes: 1
-    }
   }),
 
   methods: {

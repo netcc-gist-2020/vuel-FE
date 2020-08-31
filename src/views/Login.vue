@@ -1,5 +1,5 @@
 <template>
-  <v-content fluid>
+  <v-main fluid>
     <v-row
       align="center"
       justify="center"
@@ -11,7 +11,7 @@
       <LoginFace v-if="isLoginFace"/>
       <LoginPassword v-else/>
     </v-row>
-  </v-content>
+  </v-main>
 </template>
 
 <script>
