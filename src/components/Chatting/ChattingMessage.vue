@@ -1,5 +1,5 @@
 <template>
-  <div class="msg" v-bind:style="{'justify-content: flex-end': isSelf(username)}">
+  <div v-bind:class="{'mine' : isSelf(username), 'others' : !isSelf(username)}" v-bind:style="{'justify-content: flex-end': isSelf(username)}">
   <div class="receivedMsg" v-bind:class="{'myMsg' : isSelf(username)}">
     {{text}}
   </div>
@@ -29,18 +29,22 @@ export default {
 </script>
 
 <style scoped>
-.msg {
+.mine {
   display: flex;
   width: 100%;
+  justify-content: flex-end;
+}
+.others {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
 }
 
 .receivedMsg {
   justify-content: flex-end;
   background: yellow;
-  width: 20px;
-  height: 20px;
   display: flex;
-  height: max-content;
+  height: min-content;
   width: max-content;
   padding: 10px;
   margin: 10px;
