@@ -1,20 +1,16 @@
 <template>
   <v-container>
-    <h1>chat room!</h1>
-    <div class="total-messages">
-    <div class="received-messages">
-      <li class="received" v-for="(message, id) in receivedMessages" :key="id">
-      <!-- <ChattingMessage: v-bind:text="message.text" /> -->
-      {{message.text}}
-      </li>
-    </div>
-    <div class="sent-messages">
-      <li class="sent" v-for="(message, id) in myMessages" :key="id">
-      <!-- <ChattingMessage: v-bind:text="message.text" /> -->
-      {{message.text}}
-      </li>
-    </div>
-    </div>
+    <v-container id="scroll-target" style="height: 300px" class="overflow-y-auto">
+      <v-row class="messageWrapper"
+        v-scroll:#scroll-target="onScroll"
+        style="height: 300px"
+      >
+        <li v-bind:class="[isSelf ? sent : received]" v-for="(message, id) in Messages" :key="id">
+          {{message.text}}
+        </li>
+        <!-- <ChattingMessage v-for="(message, id) in Messages" :key="id"> -->
+      </v-row>
+    </v-container>
     <div class="input-handler">
     <v-text-field class="enter-message" v-model="text" v-on:keyup.enter="sendMessage(text)" placeholder="Type Message" solo>
     </v-text-field>
@@ -28,14 +24,13 @@
 export default {
   name: 'ChatRoom',
   data: () => ({
-    receivedMessages: [{ text: 'Hello!' }],
-    myMessages: []
+    Messages: [{ text: 'Hello!', isSelf: false }]
   }),
   // components: { ChattingMessage },
   methods: {
     sendMessage: function (text) {
       if (text != null) {
-        this.myMessages.push({ text: text })
+        this.Messages.push({ text: text, isSelf: true })
         this.text = null
       }
     }
@@ -67,8 +62,14 @@ export default {
   padding: 0;
   margin: 0;
 }
-.received{
+.messageWrapper {
   display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+li {
+  display: flex;
+  height: max-content;
   width: max-content;
   background-color: aquamarine;
   padding: 10px;
@@ -77,7 +78,7 @@ export default {
   text-size-adjust: 1em;
 }
 
-.sent{
+li.sent{
   display: flex;
   width: max-content;
   background-color:#FFF84E;
@@ -86,14 +87,6 @@ export default {
   margin: 10px;
   border-radius: 8px;
   text-size-adjust: 1em;
-}
-
-li.sent{
-  display: flex;
-  justify-content: flex-end;
-  margin-left: max-width;
-  margin-bottom: 10px;
-  padding: 10px;
 }
 
 </style>
