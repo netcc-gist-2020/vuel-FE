@@ -6,6 +6,7 @@
       </v-col>
       <v-col cols="4">
         <v-row>
+          <Video :mediaStream="hostStream"/>
           <video></video>
         </v-row>
         <v-row>
@@ -22,27 +23,27 @@
 <script>
 import ChatRoom from '@/components/ChatRoom'
 import Seats from '@/components/Seats'
+import Video from '@/components/Video'
 
 export default {
   name: 'ClassRoom',
+  data: () => ({
+    hostStream: null
+  }),
   components: {
     ChatRoom,
-    Seats
+    Seats,
+    Video
   },
   mounted () {
-    const video = this.$el.querySelector('video')
-    video.muted = true
-
-    navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: true
-    }).then(stream => {
-      video.srcObject = stream
-      video.addEventListener('loadedmetadata', () => {
-        console.log('metadata is loaded')
-        video.play()
+    if (this.$store.state.amIHost === true) {
+      navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+      }).then(stream => {
+        this.hostStream = stream
       })
-    })
+    }
   }
 }
 </script>

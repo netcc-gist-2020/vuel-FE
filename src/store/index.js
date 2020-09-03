@@ -5,7 +5,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLoginFace: true
+    isLoginFace: true,
+    amIHost: false,
+    classroomID: ''
   },
   mutations: {
   },
