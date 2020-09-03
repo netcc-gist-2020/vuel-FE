@@ -71,6 +71,8 @@ export default {
 
     this.myPeer.on('call', call => {
       console.log('I got a call')
+      call.answer(this.myStream)
+      console.log('And I answered with ' + this.myStream)
       call.on('stream', hostVideoStream => {
         this.hostStream = hostVideoStream
         console.log('I got a stream')
