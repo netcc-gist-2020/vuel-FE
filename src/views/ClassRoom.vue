@@ -40,6 +40,7 @@ export default {
   methods: {
     connectToNewUser (userId, stream) {
       const call = this.myPeer.call(userId, stream)
+      console.log('I\'m calling ' + userId)
 
       call.on('stream', userVideoStream => {
       })
@@ -62,14 +63,17 @@ export default {
 
     this.socket.on('user-connected', userId => {
       console.log(userId + ' user is conneced')
-      if (this.amIHost === true) {
+      if (this.$store.state.amIHost === true) {
+        console.log('hey')
         this.connectToNewUser(userId, this.myStream)
       }
     })
 
     this.myPeer.on('call', call => {
+      console.log('I got a call')
       call.on('stream', hostVideoStream => {
         this.hostStream = hostVideoStream
+        console.log('I got a stream')
       })
     })
 
@@ -84,7 +88,7 @@ export default {
     } else {
       navigator.mediaDevices.getUserMedia({
         video: false,
-        audio: false
+        audio: true
       }).then(stream => {
         this.myStream = stream
       })
