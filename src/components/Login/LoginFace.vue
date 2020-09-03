@@ -13,7 +13,7 @@
       align="center"
       justify="center"
     >
-      <v-btn>
+      <v-btn @click="tryLogin">
         <router-link to="mypage">LOGIN</router-link>
       </v-btn>
     </v-row>
@@ -36,6 +36,21 @@ export default {
   methods: {
     disableLoginFace () {
       this.$store.state.isLoginFace = false
+    },
+
+    tryLogin () {
+      const video = this.$el.querySelector('video')
+      const canvas = document.createElement('canvas')
+      const img = document.createElement('img')
+
+      // const mediaStream = video.srcObject
+      canvas.width = video.videoWidth
+      canvas.height = video.videoHeight
+
+      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height)
+      img.src = canvas.toDataURL('image/jpeg')
+
+      this.$el.append(img)
     }
   },
 
