@@ -22,6 +22,7 @@
             <v-text-field placeholder="Enter" filled>
             </v-text-field>
             <v-btn
+              @click="setClassRoomID"
               color="success"
             >
               <router-link to="/classroom">
@@ -43,6 +44,11 @@
 export default {
   name: 'MyPage',
   components: {
+  },
+  methods: {
+    setClassRoomID () {
+      this.$store.state.classRoomID = this.$el.querySelector('input').value
+    }
   }
 }
 </script>
