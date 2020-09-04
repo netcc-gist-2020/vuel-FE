@@ -32,11 +32,12 @@ export default {
     hostStream: null,
     myStream: null,
     socket: io.connect('http://116.89.189.14:3000'),
+    socket2: io.connect('ws://210.125.84.93:8080'),
     myPeer: new Peer(undefined, {
       host: '116.89.189.14',
       port: '3001'
     }),
-    guestList: ['A', 'B']
+    guestList: []
   }),
   methods: {
     connectToNewUser (userId, stream) {
@@ -48,9 +49,6 @@ export default {
 
       call.on('close', () => {
       })
-    },
-    renderNewUser (userId) {
-      this.guestList.push(userId)
     }
   },
   components: {
@@ -60,9 +58,10 @@ export default {
   },
   mounted () {
     const ROOM_ID = this.$store.state.classRoomID
-
+    this.guestList = this.$store.state.guestList
     this.myPeer.on('open', id => {
       this.socket.emit('join-room', ROOM_ID, id)
+      // this.socket2.emit('')
     })
 
     this.socket.on('user-connected', userId => {
@@ -72,11 +71,13 @@ export default {
         this.connectToNewUser(userId, this.myStream)
       }
       // For rendering new user's avatar
-      this.renderNewUser(userId)
+      // this.renderNewUser(userId)
+      this.$store.commit('renderNewUser', userId)
     })
 
     // For expression changes
-    this.socket.on('face-changed', (userId, expression) => {
+    this.socket2.on('message', (message) => {
+      {userId, expression}
       console.log(userId + 'face changed to ' + expression)
     })
 
@@ -106,7 +107,7 @@ export default {
         this.myStream = stream
       })
     }
-    // console.log(this.guestList)
+    console.log(this.guestList)
   }
 }
 </script>

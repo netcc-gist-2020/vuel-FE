@@ -7,9 +7,18 @@ export default new Vuex.Store({
   state: {
     isLoginFace: true,
     amIHost: true,
-    classRoomID: ''
+    classRoomID: '',
+    guestList: ['Me']
   },
   mutations: {
+    renderNewUser (state, userId) {
+      state.guestList.push(userId)
+      console.log('Added guest: ' + userId)
+    },
+    removeUser (state, userId) {
+      const index = state.guestList.indexOf(userId)
+      state.guestList.splice(index, 1)
+    }
   },
   actions: {
   },
