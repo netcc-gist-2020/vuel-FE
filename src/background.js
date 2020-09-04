@@ -14,6 +14,9 @@ protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
 ])
 
+// Handle CORS.
+app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors');
+
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
@@ -22,7 +25,8 @@ function createWindow () {
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
+      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
+      webSecurity: false
     }
   })
 

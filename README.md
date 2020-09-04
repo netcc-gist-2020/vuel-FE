@@ -1,5 +1,10 @@
 # vuel
 
+## Trouble Shooting
+
+- cors: https://dev.targetprocess.com/discuss/588c8a94bded0819008ccd1b 참조하여 해결했음. 
+        더 좋은 방법이 있을 것으로 보임. 
+
 ## Project setup
 ```
 yarn install
