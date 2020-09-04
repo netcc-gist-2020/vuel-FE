@@ -14,7 +14,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <Seats/>
+      <Seats :guests="guestList"/>
     </v-row>
   </v-container>
 </template>
@@ -35,7 +35,8 @@ export default {
     myPeer: new Peer(undefined, {
       host: '116.89.189.14',
       port: '3001'
-    })
+    }),
+    guestList: ['A', 'B']
   }),
   methods: {
     connectToNewUser (userId, stream) {
@@ -47,6 +48,9 @@ export default {
 
       call.on('close', () => {
       })
+    },
+    renderNewUser (userId) {
+      this.guestList.push(userId)
     }
   },
   components: {
@@ -62,11 +66,18 @@ export default {
     })
 
     this.socket.on('user-connected', userId => {
-      console.log(userId + ' user is conneced')
+      console.log(userId + ' user is connected')
       if (this.$store.state.amIHost === true) {
         console.log('hey')
         this.connectToNewUser(userId, this.myStream)
       }
+      // For rendering new user's avatar
+      this.renderNewUser(userId)
+    })
+
+    // For expression changes
+    this.socket.on('face-changed', (userId, expression) => {
+      console.log(userId + 'face changed to ' + expression)
     })
 
     this.myPeer.on('call', call => {
@@ -95,6 +106,7 @@ export default {
         this.myStream = stream
       })
     }
+    // console.log(this.guestList)
   }
 }
 </script>

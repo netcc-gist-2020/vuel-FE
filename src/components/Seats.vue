@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="seats">
     <v-row justify="center">
-      <AvatarDummy v-for="guest in guests" :key="guest['name']" :index="guest" />
+      <AvatarDummy v-for="(guestID, id) in guests" :key="guestID" :index="id" />
       <v-row justify="end" align="end" class="desk">
           <v-btn class="ma-3"> MUTE </v-btn>
           <v-btn class="ma-3"> AUTH </v-btn>
@@ -15,16 +15,16 @@
 <script>
 // import Avatar from '@/components/Avatar'
 import AvatarDummy from '@/components/AvatarDummy'
-
+// console.log(this.guests)
 export default {
   name: 'Seats',
   components: {
     // Avatar
     AvatarDummy
   },
-
+  props: { guests: Array },
   data: () => ({
-    guests: [1, 2, 3, 4, 5]
+    // guests: this.guests
     /*
     guests: [
       {
@@ -59,7 +59,9 @@ export default {
       }
     ]
     */
-  })
+  }),
+  // mounted () { console.log(this.guests) } //잘 불러오고 있음
+  mounted () { console.log(this.guests) }
 }
 </script>
 
