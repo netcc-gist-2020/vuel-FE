@@ -13,9 +13,7 @@
       align="center"
       justify="center"
     >
-      <v-btn @click="tryLogin">
-        <router-link to="mypage">LOGIN</router-link>
-      </v-btn>
+      <v-btn @click="tryLogin"> LOGIN </v-btn>
     </v-row>
 
     <v-spacer></v-spacer>
@@ -32,25 +30,56 @@
 </template>
 
 <script>
+import axios from 'axios'
+import router from '@/router'
+
 export default {
   methods: {
     disableLoginFace () {
       this.$store.state.isLoginFace = false
     },
 
-    tryLogin () {
+    async tryLogin () {
+      console.log('i\'ll try!')
       const video = this.$el.querySelector('video')
       const canvas = document.createElement('canvas')
-      const img = document.createElement('img')
 
       // const mediaStream = video.srcObject
       canvas.width = video.videoWidth
       canvas.height = video.videoHeight
 
       canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height)
-      img.src = canvas.toDataURL('image/jpeg')
 
-      this.$el.append(img)
+      const formData = new FormData()
+      const base64 = canvas.toDataURL('image/jpeg')
+
+      const blob = await fetch(base64).then(res => res.blob())
+      console.log(blob)
+
+      formData.append('name', 'user-face')
+      formData.append('content', blob)
+
+      console.log('formData: ', formData)
+
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+
+      // let vm = this
+      axios.post(
+        'http://116.89.189.53:9080/signin',
+        formData,
+        config
+      )
+        .then(response => {
+          console.log(response)
+          router.push('mypage')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
 
