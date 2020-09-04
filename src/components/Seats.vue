@@ -1,11 +1,11 @@
 <template>
   <v-container fluid class="seats">
     <v-row justify="center">
-      <AvatarDummy v-for="(guestID, id) in guests" :key="guestID" :index="id" />
+      <AvatarDummy v-for="(guestInfo, id) in guests" :key="guestInfo[0]" :index="id" :expression="guestInfo[1]" :userId="guestInfo[0]"/>
       <v-row justify="end" align="end" class="desk">
           <v-btn class="ma-3"> MUTE </v-btn>
           <v-btn class="ma-3"> AUTH </v-btn>
-          <v-btn class="ma-3" color="error"> LEAVE </v-btn>
+          <v-btn class="ma-3" color="error" @click="leave"> LEAVE </v-btn>
       </v-row>
     </v-row>
 
@@ -15,53 +15,34 @@
 <script>
 // import Avatar from '@/components/Avatar'
 import AvatarDummy from '@/components/AvatarDummy'
-// console.log(this.guests)
+import router from '@/router'
+
 export default {
   name: 'Seats',
   components: {
     // Avatar
     AvatarDummy
   },
-  props: { guests: Array },
+  props: ['socket2'],
   data: () => ({
-    // guests: this.guests
-    /*
-    guests: [
-      {
-        name: 'Changa Lee',
-        tee: 0,
-        body: 0,
-        eyes: 0
-      },
-      {
-        name: 'Sua Jeon',
-        tee: 0,
-        body: 1,
-        eyes: 0
-      },
-      {
-        name: 'Taewan Kim',
-        tee: 2,
-        body: 0,
-        eyes: 1
-      },
-      {
-        name: 'Yura Choi',
-        tee: 1,
-        body: 1,
-        eyes: 1
-      },
-      {
-        name: 'Jeongyun Kim',
-        tee: 1,
-        body: 3,
-        eyes: 2
-      }
-    ]
-    */
+    guestList: {},
+    guests: []
   }),
-  // mounted () { console.log(this.guests) } //잘 불러오고 있음
-  mounted () { console.log(this.guests) }
+  methods: {
+    leave () {
+      const closingMessage = { type: 'close', data: { key: this.$store.state.myID } }
+      this.socket2.send(JSON.stringify(closingMessage))
+      router.push('mypage')
+    }
+  },
+  mounted () {
+    this.guestList = this.$store.state.guestList
+    const tempList = this.guestList
+    this.guests = Object.keys(tempList).map(function (key) {
+      return [String(key), tempList[key]]
+    })
+    console.log(this.guests)
+  }
 }
 </script>
 
