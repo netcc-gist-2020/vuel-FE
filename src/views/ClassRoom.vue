@@ -14,7 +14,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <Seats/>
+      <Seats :socket2="socket2"/>
     </v-row>
   </v-container>
 </template>
@@ -25,6 +25,7 @@ import Seats from '@/components/Seats'
 import Video from '@/components/Video'
 import io from 'socket.io-client'
 import Peer from 'peerjs'
+// import WebSocket from 'ws'
 
 export default {
   name: 'ClassRoom',
@@ -32,6 +33,8 @@ export default {
     hostStream: null,
     myStream: null,
     socket: io.connect('http://116.89.189.14:3000'),
+    // socket2: io.connect('ws://116.89.189.44'),
+    socket2: new WebSocket('ws://116.89.189.44:30003'),
     myPeer: new Peer(undefined, {
       host: '116.89.189.14',
       port: '3001'
@@ -56,18 +59,45 @@ export default {
   },
   mounted () {
     const ROOM_ID = this.$store.state.classRoomID
-
     this.myPeer.on('open', id => {
       this.socket.emit('join-room', ROOM_ID, id)
     })
 
     this.socket.on('user-connected', userId => {
-      console.log(userId + ' user is conneced')
+      console.log(userId + ' user is connected')
       if (this.$store.state.amIHost === true) {
         console.log('hey')
         this.connectToNewUser(userId, this.myStream)
       }
-    })
+    }
+    )
+
+    this.socket2.onopen = () => {
+      const openingMessage = { type: 'open', data: 'hello' }
+      this.socket2.send(JSON.stringify(openingMessage))
+      const vm = this
+      this.socket2.onmessage = function (event) {
+        const message = JSON.parse(event.data)
+        console.log(message)
+        const { type, data } = message
+        switch (type) {
+          case 'welcome':
+            console.log('Welcome!')
+            vm.$store.commit('getMyID', data.key) // TODO: set
+            vm.$store.commit('getUsers', data.keys)
+            break
+          case 'enter':
+            vm.$store.commit('addNewUser', data.key)
+            break
+          case 'bye':
+            vm.$store.commit('removeUser', data.key)
+            break
+          case 'exp':
+            vm.$store.commit('changeExpression', data.key, data.expression)
+            break
+        }
+      }
+    }
 
     this.myPeer.on('call', call => {
       console.log('I got a call')
