@@ -36,7 +36,10 @@ export default new Vuex.Store({
       // state.guestList.delete(userId)
     },
     changeExpression (state, userId, newexp) {
-      state.guestList[userId] = newexp
+      state.guestList = {
+        ...state.guestList,
+        userId: newexp
+      }
     }
     // TODO: 모듈화 할 것
   },
