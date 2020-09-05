@@ -30,7 +30,7 @@ export default {
     }
   },
   mounted () {
-    // console.log(this.get_expression)
+    console.log('Avatar!')
   },
   computed: {
     // get_expression () { return this.$store.getters.getExpressionById[this.userId] }

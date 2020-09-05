@@ -16,25 +16,30 @@ export default new Vuex.Store({
       state.myID = userId
     },
     getUsers (state, otherUsers) {
-      state.guestList = otherUsers
+      // for (var otherUser in otherUsers) {
+      //   state.guestList[otherUser] = 'neutral'
+      // }
+      console.log(otherUsers)
+      for (var i = 0; i < otherUsers.length; i++) {
+        state.guestList[otherUsers[i]] = 'neutral'
+      }
+      console.log(state.guestList)
     },
     addNewUser (state, userId, expression = 'neutral') {
       state.guestList[userId] = expression
       console.log('New guest: ' + userId)
     },
     removeUser (state, userId) {
-      // const index = state.guestList.indexOf(userId)
-      // state.guestList.splice(index, 1)
-      state.guestList.delete(userId)
+      // state.guestList.delete(userId)
     },
     changeExpression (state, userId, newexp) {
       state.guestList[userId] = newexp
     }
   },
-  getter: {
-    getExpressionById: (state) => (userId) => {
-      // return state.guestList[userId]
-      return 'neutral'
+  getters: {
+    getUserList: (state) => {
+      console.log(state.guestList)
+      return state.guestList
     }
   },
   modules: {

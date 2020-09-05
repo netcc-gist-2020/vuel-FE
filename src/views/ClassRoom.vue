@@ -34,7 +34,7 @@ export default {
     myStream: null,
     socket: io.connect('http://116.89.189.14:3000'),
     // socket2: io.connect('ws://116.89.189.44'),
-    socket2: new WebSocket('ws://116.89.189.44:8080'),
+    socket2: new WebSocket('ws://116.89.189.44:8000'),
     myPeer: new Peer(undefined, {
       host: '116.89.189.14',
       port: '3001'
@@ -108,7 +108,7 @@ export default {
             vm.$store.commit('getUsers', data.keys)
             break
           case 'enter':
-            vm.$store.commit('addUser', data.key, data.expression)
+            vm.$store.commit('addUser', data.key)
             break
           case 'bye':
             vm.$store.commit('removeUser', data.key)

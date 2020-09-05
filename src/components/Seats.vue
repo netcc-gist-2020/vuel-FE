@@ -16,6 +16,7 @@
 // import Avatar from '@/components/Avatar'
 import AvatarDummy from '@/components/AvatarDummy'
 import router from '@/router'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Seats',
@@ -25,7 +26,6 @@ export default {
   },
   props: ['socket2'],
   data: () => ({
-    guestList: {},
     guests: []
   }),
   methods: {
@@ -35,13 +35,29 @@ export default {
       router.push('mypage')
     }
   },
-  mounted () {
-    this.guestList = this.$store.state.guestList
-    const tempList = this.guestList
-    this.guests = Object.keys(tempList).map(function (key) {
-      return [String(key), tempList[key]]
+  computed: {
+    // get_guestList () { return this.$store.getters.getUserList }
+    ...mapGetters({
+      guestList: 'getUserList'
     })
-    console.log(this.guests)
+  },
+  watch: {
+    // get_guestList (guestList) {
+    //   console.log(guestList)
+    //   this.guests = Object.keys(guestList).map(function (key) {
+    //     return [String(key), guestList[key]]
+    //   })
+    // }
+    guestList: (val) => {
+      console.log(val)
+      this.guests = Object.keys(val).map(function (key) {
+        return [String(key), val[key]]
+      })
+    }
+  },
+  mounted () {
+    // this.guestList = this.$store.getters.getUserList
+    console.log(this.guestList)
   }
 }
 </script>
