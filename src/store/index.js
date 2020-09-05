@@ -6,13 +6,13 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoginFace: true,
-    amIHost: true,
+    amIHost: false,
     classRoomID: '',
     myID: '',
     guestList: {}
   },
   mutations: {
-    getMyID (state, userId) {
+    setMyID (state, userId) {
       state.myID = userId
     },
     getUsers (state, otherUsers) {
@@ -47,6 +47,9 @@ export default new Vuex.Store({
     getUserList: (state) => {
       console.log(state.guestList)
       return state.guestList
+    },
+    getMyID: (state) => {
+      return state.myID
     }
   },
   modules: {
