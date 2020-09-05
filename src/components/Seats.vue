@@ -1,11 +1,11 @@
 <template>
   <v-container fluid class="seats">
     <v-row justify="center">
-      <AvatarDummy v-for="guest in guests" :key="guest['name']" :index="guest" />
+      <AvatarDummy v-for="(info, id) in guests" :key="info[0]" :index="id" :expression="info[1]" :userId="info[0]"/>
       <v-row justify="end" align="end" class="desk">
           <v-btn class="ma-3"> MUTE </v-btn>
           <v-btn class="ma-3"> AUTH </v-btn>
-          <v-btn class="ma-3" color="error"> LEAVE </v-btn>
+          <v-btn class="ma-3" color="error" @click="leave"> LEAVE </v-btn>
       </v-row>
     </v-row>
 
@@ -15,6 +15,8 @@
 <script>
 // import Avatar from '@/components/Avatar'
 import AvatarDummy from '@/components/AvatarDummy'
+import router from '@/router'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Seats',
@@ -22,44 +24,35 @@ export default {
     // Avatar
     AvatarDummy
   },
-
+  props: ['socket2'],
   data: () => ({
-    guests: [1, 2, 3, 4, 5]
-    /*
-    guests: [
-      {
-        name: 'Changa Lee',
-        tee: 0,
-        body: 0,
-        eyes: 0
-      },
-      {
-        name: 'Sua Jeon',
-        tee: 0,
-        body: 1,
-        eyes: 0
-      },
-      {
-        name: 'Taewan Kim',
-        tee: 2,
-        body: 0,
-        eyes: 1
-      },
-      {
-        name: 'Yura Choi',
-        tee: 1,
-        body: 1,
-        eyes: 1
-      },
-      {
-        name: 'Jeongyun Kim',
-        tee: 1,
-        body: 3,
-        eyes: 2
-      }
-    ]
-    */
-  })
+    guests: []
+  }),
+  methods: {
+    leave () {
+      const closingMessage = { type: 'close', data: { key: this.$store.state.myID } }
+      this.socket2.send(JSON.stringify(closingMessage))
+      router.push('mypage')
+    }
+  },
+  computed: {
+    // get_guestList () { return this.$store.getters.getUserList }
+    ...mapGetters({
+      guestList: 'getUserList'
+    })
+  },
+  watch: {
+    guestList (val) {
+      console.log(val)
+      this.guests = Object.keys(val).map(function (key) {
+        return [String(key), val[key]]
+      })
+    }
+  },
+  mounted () {
+    // this.guestList = this.$store.getters.getUserList
+    console.log(this.guestList)
+  }
 }
 </script>
 
