@@ -34,6 +34,9 @@ import axios from 'axios'
 import router from '@/router'
 
 export default {
+  data: () => ({
+    myStream: null
+  }),
   methods: {
     disableLoginFace () {
       this.$store.state.isLoginFace = false
@@ -56,8 +59,9 @@ export default {
       const blob = await fetch(base64).then(res => res.blob())
       console.log(blob)
 
-      formData.append('name', 'user-face')
-      formData.append('content', blob)
+      // formData.append('name', 'user-face')
+      // formData.append('content', blob)
+      formData.append('user-face', blob)
 
       console.log('formData: ', formData)
 
@@ -69,7 +73,8 @@ export default {
 
       // let vm = this
       axios.post(
-        'http://116.89.189.53:9080/signin',
+        'http://116.89.189.53:9080/signin/face',
+        // 'http://203.237.53.84:9080/signin/face',
         formData,
         config
       )
@@ -92,10 +97,17 @@ export default {
       audio: true
     }).then(stream => {
       video.srcObject = stream
+      this.myStream = stream
       video.addEventListener('loadedmetadata', () => {
         console.log('metadata is loaded')
         video.play()
       })
+    })
+  },
+
+  beforeDestroy () {
+    this.myStream.getTracks().forEach(track => {
+      track.stop()
     })
   }
 }
