@@ -34,7 +34,8 @@ export default {
     myStream: null,
     socket: io.connect('http://116.89.189.14:3000'),
     // socket2: io.connect('ws://116.89.189.44'),
-    socket2: new WebSocket('ws://116.89.189.44:30003'),
+    socket2: new WebSocket('ws://116.89.189.44:8000'),
+    faceExpSocket: new WebSocket('ws://localhost:3000'),
     myPeer: new Peer(undefined, {
       host: '116.89.189.14',
       port: '3001'
@@ -83,7 +84,7 @@ export default {
         switch (type) {
           case 'welcome':
             console.log('Welcome!')
-            vm.$store.commit('getMyID', data.key) // TODO: set
+            vm.$store.commit('setMyID', data.key) // TODO: set
             vm.$store.commit('getUsers', data.keys)
             break
           case 'enter':
@@ -96,6 +97,22 @@ export default {
             vm.$store.commit('changeExpression', data.key, data.expression)
             break
         }
+      }
+    }
+    this.faceExpSocket.onopen = () => {
+      let faceExpMsg = { type: 'exp' }
+      const vm = this
+      this.faceExpSocket.onmessage = function (event) {
+        const message = JSON.parse(event.data)
+        faceExpMsg = {
+          ...faceExpMsg,
+          data: {
+            key: vm.$store.getters.getMyID,
+            ...message
+          }
+        }
+        // console.log(faceExpMsg)
+        vm.socket2.send(JSON.stringify(faceExpMsg))
       }
     }
 
