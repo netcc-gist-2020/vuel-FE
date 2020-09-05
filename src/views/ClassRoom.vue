@@ -83,7 +83,7 @@ export default {
         switch (type) {
           case 'welcome':
             console.log('Welcome!')
-            vm.$store.commit('getMyID', data.key)
+            vm.$store.commit('getMyID', data.key) // TODO: set
             vm.$store.commit('getUsers', data.keys)
             break
           case 'enter':

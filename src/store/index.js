@@ -16,16 +16,15 @@ export default new Vuex.Store({
       state.myID = userId
     },
     getUsers (state, otherUsers) {
-      // for (var otherUser in otherUsers) {
-      //   state.guestList[otherUser] = 'neutral'
-      // }
       console.log(otherUsers)
+      state.guestList = { ...state.guestList }
       for (var i = 0; i < otherUsers.length; i++) {
-        state.guestList[otherUsers[i]] = 'neutral'
+        state.guestList[otherUsers[i]] = 'neutral' // TODO: 서버에서 줘야 하는 정보
       }
       console.log(state.guestList)
     },
     addNewUser (state, userId, expression = 'neutral') {
+      // TODO: expression은 서버에서 줘야 하는 정보
       // state.guestList[userId] = expression
       state.guestList = {
         ...state.guestList,
@@ -39,6 +38,7 @@ export default new Vuex.Store({
     changeExpression (state, userId, newexp) {
       state.guestList[userId] = newexp
     }
+    // TODO: 모듈화 할 것
   },
   getters: {
     getUserList: (state) => {

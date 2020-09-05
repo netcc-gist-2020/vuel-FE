@@ -26,7 +26,7 @@ export default {
   methods: {
     getImageUrl (index, expression) {
       var images = require.context('../assets/avatar/', false, /\.png$/)
-      return images('./basic0' + this.index + '_' + this.expression + '.png')
+      return images('./basic0' + this.index + '_' + this.expression + '.png') // TODO: 이름 형식 바꾸기
     }
   },
   mounted () {
