@@ -9,7 +9,7 @@ export default new Vuex.Store({
     amIHost: true,
     classRoomID: '',
     myID: '',
-    guestList: { A: 'happy', B: 'neutral' }
+    guestList: {}
   },
   mutations: {
     getMyID (state, userId) {
