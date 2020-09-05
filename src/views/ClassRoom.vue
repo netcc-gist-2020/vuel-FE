@@ -95,6 +95,12 @@ export default {
         this.myStream = stream
       })
     }
+  },
+
+  beforeDestroy () {
+    this.myStream.getTracks().forEach(track => {
+      track.stop()
+    })
   }
 }
 </script>

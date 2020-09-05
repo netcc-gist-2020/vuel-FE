@@ -9,6 +9,12 @@
 
     <v-spacer></v-spacer>
 
+    <v-text-field
+      v-model="name"
+      label="NAME"
+      filled
+    ></v-text-field>
+
     <v-row
       align="center"
       justify="center"
@@ -35,7 +41,8 @@ import router from '@/router'
 
 export default {
   data: () => ({
-    myStream: null
+    myStream: null,
+    name: ''
   }),
   methods: {
     disableLoginFace () {
@@ -62,6 +69,7 @@ export default {
       // formData.append('name', 'user-face')
       // formData.append('content', blob)
       formData.append('user-face', blob)
+      formData.append('user-name', this.name)
 
       console.log('formData: ', formData)
 
