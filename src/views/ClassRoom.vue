@@ -34,7 +34,7 @@ export default {
     myStream: null,
     socket: io.connect('http://116.89.189.14:3000'),
     // socket2: io.connect('ws://116.89.189.44'),
-    socket2: new WebSocket('ws://116.89.189.44:8000'),
+    socket2: new WebSocket('ws://116.89.189.44:30003'),
     myPeer: new Peer(undefined, {
       host: '116.89.189.14',
       port: '3001'
@@ -72,27 +72,6 @@ export default {
     }
     )
 
-    // this.socket2.onmessage = function (event) {
-    //   const message = JSON.parse(event.data)
-    //   const { type, data } = message
-    //   switch (type) {
-    //     case 'welcome':
-    //       console.log('Welcome!')
-    //       this.$store.commit('getMyID', data.key, data.expression)
-    //       this.$store.commit('getUsers', data.keys)
-    //       break
-    //     case 'enter':
-    //       this.$store.commit('addUser', data.key, data.expression)
-    //       break
-    //     case 'closed':
-    //       this.$store.commit('removeUser', data.key)
-    //       break
-    //     case 'exp':
-    //       this.$store.commit('changeExpression', data.key, data.expression)
-    //       break
-    //   }
-    // }
-
     this.socket2.onopen = () => {
       const openingMessage = { type: 'open', data: 'hello' }
       this.socket2.send(JSON.stringify(openingMessage))
@@ -108,7 +87,7 @@ export default {
             vm.$store.commit('getUsers', data.keys)
             break
           case 'enter':
-            vm.$store.commit('addUser', data.key)
+            vm.$store.commit('addNewUser', data.key)
             break
           case 'bye':
             vm.$store.commit('removeUser', data.key)

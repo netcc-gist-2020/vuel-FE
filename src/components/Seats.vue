@@ -42,13 +42,7 @@ export default {
     })
   },
   watch: {
-    // get_guestList (guestList) {
-    //   console.log(guestList)
-    //   this.guests = Object.keys(guestList).map(function (key) {
-    //     return [String(key), guestList[key]]
-    //   })
-    // }
-    guestList: (val) => {
+    guestList (val) {
       console.log(val)
       this.guests = Object.keys(val).map(function (key) {
         return [String(key), val[key]]

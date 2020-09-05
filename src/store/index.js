@@ -26,7 +26,11 @@ export default new Vuex.Store({
       console.log(state.guestList)
     },
     addNewUser (state, userId, expression = 'neutral') {
-      state.guestList[userId] = expression
+      // state.guestList[userId] = expression
+      state.guestList = {
+        ...state.guestList,
+        userId: expression
+      }
       console.log('New guest: ' + userId)
     },
     removeUser (state, userId) {
