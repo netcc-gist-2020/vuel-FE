@@ -30,10 +30,10 @@ export default {
   }),
   components: { ChattingMessage },
   methods: {
-    sendMessage: function (text) {
+    sendMessage (text) {
       if (text != null) {
         this.Messages.push({ text: text, username: 'self' })
-        this.text = null
+        this.Messages.text = null
       }
     }
   }

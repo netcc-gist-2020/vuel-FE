@@ -1,10 +1,8 @@
 <template>
   <div class="avatar">
-    <!-- <img v-if="index == 0" class="mx-5" src="../assets/avatar/basic01.png">
-    <img v-else-if="index == 1" class="mx-5" src="../assets/avatar/basic02.png">
-    <img v-else-if="index == 2" class="mx-5" src="../assets/avatar/basic03.png">
-    <img v-else-if="index == 3" class="mx-5" src="../assets/avatar/basic04.png">
-    <img v-else-if="index == 4" class="mx-5" src="../assets/avatar/basic05.png"> -->
+    <div class="avatarid">
+      {{ userId }}
+    </div>
     <img class="mx-5" :src="getImageUrl()">
   </div>
 </template>
@@ -50,4 +48,13 @@ export default {
 </script>
 
 <style>
+.avatar {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.avatarid {
+  border-radius: 8px;
+  border-color: black;
+}
 </style>
