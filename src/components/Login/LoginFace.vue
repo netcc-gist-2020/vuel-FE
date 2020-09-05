@@ -4,7 +4,13 @@
       align="center"
       justify="center"
     >
-      <video></video>
+      <canvas></canvas>
+      <v-progress-circular :class="{ notLoaded: keepDrawing }"
+        style="height: 100px; width: 100px; position: absolute;"
+        color="#9dc2e6"
+        indeterminate
+      ></v-progress-circular>
+
     </v-row>
 
     <v-spacer></v-spacer>
@@ -42,32 +48,50 @@ import router from '@/router'
 export default {
   data: () => ({
     myStream: null,
-    name: ''
+    name: '',
+    video: document.createElement('video'),
+    keepDrawing: true
   }),
   methods: {
     disableLoginFace () {
       this.$store.state.isLoginFace = false
     },
 
-    async tryLogin () {
-      console.log('i\'ll try!')
-      const video = this.$el.querySelector('video')
-      const canvas = document.createElement('canvas')
+    createWaitingAnimation (canvas) {
+      this.keepDrawing = false
 
-      // const mediaStream = video.srcObject
+      const context = canvas.getContext('2d')
+      const image = context.getImageData(0, 0, canvas.width, canvas.height)
+      const data = image.data
+      let i = 0
+
+      for (i = 0; i < data.length; i += 4) {
+        const r = data[i]
+        const g = data[i + 1]
+        const b = data[i + 2]
+        const brightness = (r + g + b) / 3
+
+        data[i] = data[i + 1] = data[i + 2] = brightness
+      }
+
+      context.putImageData(image, 0, 0)
+      // console.log(image);
+    },
+    async tryLogin () {
+      console.log('i\'ll try login!')
+      const video = this.video
+      const canvas = this.$el.querySelector('canvas')
+
       canvas.width = video.videoWidth
       canvas.height = video.videoHeight
-
-      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height)
 
       const formData = new FormData()
       const base64 = canvas.toDataURL('image/jpeg')
 
       const blob = await fetch(base64).then(res => res.blob())
-      console.log(blob)
 
-      // formData.append('name', 'user-face')
-      // formData.append('content', blob)
+      this.createWaitingAnimation(canvas)
+
       formData.append('user-face', blob)
       formData.append('user-name', this.name)
 
@@ -79,7 +103,6 @@ export default {
         }
       }
 
-      // let vm = this
       axios.post(
         'http://116.89.189.53:9080/signin/face',
         // 'http://203.237.53.84:9080/signin/face',
@@ -91,14 +114,20 @@ export default {
           router.push('mypage')
         })
         .catch(err => {
+          this.keepDrawing = true
+
+          video.dispatchEvent(new Event('play'))
+
           console.log(err)
         })
     }
   },
 
   mounted () {
-    const video = this.$el.querySelector('video')
-    video.muted = true
+    const video = this.video
+    const canvas = this.$el.querySelector('canvas')
+    const vm = this
+    // video.muted = true
 
     navigator.mediaDevices.getUserMedia({
       video: true,
@@ -111,6 +140,19 @@ export default {
         video.play()
       })
     })
+
+    video.addEventListener('play', () => {
+      canvas.width = video.videoWidth
+      canvas.height = video.videoHeight
+      draw(video, canvas.getContext('2d'), video.videoWidth, video.videoHeight)
+    }, false)
+
+    function draw (video, context, width, height) {
+      if (vm.keepDrawing) {
+        context.drawImage(video, 0, 0, width, height)
+        setTimeout(draw, 10, video, context, width, height)
+      }
+    }
   },
 
   beforeDestroy () {
