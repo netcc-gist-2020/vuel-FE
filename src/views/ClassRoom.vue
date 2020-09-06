@@ -33,8 +33,7 @@ export default {
     hostStream: null,
     myStream: null,
     socket: io.connect('http://116.89.189.14:3000'),
-    // socket2: io.connect('ws://116.89.189.44'),
-    socket2: new WebSocket('ws://116.89.189.44:8000'),
+    socket2: new WebSocket('ws://116.89.189.44:30003'),
     faceExpSocket: new WebSocket('ws://localhost:3000'),
     myPeer: new Peer(undefined, {
       host: '116.89.189.14',
@@ -79,7 +78,7 @@ export default {
       const vm = this
       this.socket2.onmessage = function (event) {
         const message = JSON.parse(event.data)
-        console.log(message)
+        // console.log(message)
         const { type, data } = message
         switch (type) {
           case 'welcome':
@@ -94,7 +93,8 @@ export default {
             vm.$store.commit('removeUser', data.key)
             break
           case 'exp':
-            vm.$store.commit('changeExpression', data.key, data.expression)
+            console.log('Expression changed: ' + data)
+            vm.$store.commit('changeExpression', data)
             break
         }
       }
@@ -111,7 +111,8 @@ export default {
             ...message
           }
         }
-        // console.log(faceExpMsg)
+        // console.log('Face expression message: ')
+        // console.log(faceExpMsg) // 잘 됨
         vm.socket2.send(JSON.stringify(faceExpMsg))
       }
     }

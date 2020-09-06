@@ -2,6 +2,8 @@
   <div class="avatar">
     <div class="avatarid">
       {{ userId }}
+      {{ expression }}
+
     </div>
     <img class="mx-5" :src="getImageUrl()">
   </div>
@@ -14,21 +16,27 @@ export default {
   props: {
     userId: String,
     index: Number,
-    expression: String
+    absence: String,
+    expression: String,
+    eyeDir: String
   },
 
   data: () => ({
-    // expression: this.expression
   }),
 
   methods: {
-    getImageUrl (index, expression) {
+    getImageUrl (index, expression, eyeDir) {
       var images = require.context('../assets/avatar/', false, /\.png$/)
+      var typeEye = 0
       var typeExp = 0
-      const typeEye = 0
-      if (this.expression === 'neutral') typeExp = 0
-      else if (this.expression === 'happy') typeExp = 1
-      else typeExp = 2
+
+      if (this.eyeDir === 'left') typeEye = 1
+      else if (this.eyeDir === 'right') typeEye = 2
+      else typeEye = 0
+
+      if (this.expression === 'happy') typeExp = 1
+      else if (this.expression === 'sleepy') typeExp = 2
+      else typeExp = 0
       return images('./' + this.index + typeExp + typeEye + '.png') // TODO: 이름 형식 바꾸기
     }
   },

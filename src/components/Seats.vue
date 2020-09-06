@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="seats">
     <v-row justify="center">
-      <AvatarDummy v-for="(info, id) in guests" :key="info[0]" :index="id" :expression="info[1]" :userId="info[0]"/>
+      <AvatarDummy v-for="(info, id) in guests" :key="info[0]" :index="id" :absence="info[1].absence" :expression="info[1].expression" :eyeDir="info[1].eye_dir" :userId="info[0]"/>
       <v-row justify="end" align="end" class="desk">
           <v-btn class="ma-3"> MUTE </v-btn>
           <v-btn class="ma-3"> AUTH </v-btn>
