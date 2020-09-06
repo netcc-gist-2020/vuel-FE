@@ -1,6 +1,10 @@
 <template>
   <div class="avatar">
-    <img class="mx-5" :class="this.absence" :src="getImageUrl()">
+    <div class="avatarid">
+      {{ userId }}
+      {{ expression }}
+    </div>
+    <img class="mx-5" :src="getImageUrl()">
   </div>
 </template>
 
@@ -51,6 +55,15 @@ export default {
 </script>
 
 <style>
+.avatar {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.avatarid {
+  border-radius: 8px;
+  border-color: black;
+}
 .absence {
   visibility: hidden;
 }

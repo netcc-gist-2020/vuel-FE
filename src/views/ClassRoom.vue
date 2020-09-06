@@ -78,7 +78,7 @@ export default {
       const vm = this
       this.socket2.onmessage = function (event) {
         const message = JSON.parse(event.data)
-        console.log(message)
+        // console.log(message)
         const { type, data } = message
         switch (type) {
           case 'welcome':
@@ -93,7 +93,8 @@ export default {
             vm.$store.commit('removeUser', data.key)
             break
           case 'exp':
-            vm.$store.commit('changeExpression', data.key, data)
+            console.log('Expression changed: ' + data)
+            vm.$store.commit('changeExpression', data)
             break
         }
       }
@@ -110,7 +111,8 @@ export default {
             ...message
           }
         }
-        // console.log(faceExpMsg)
+        // console.log('Face expression message: ')
+        // console.log(faceExpMsg) // 잘 됨
         vm.socket2.send(JSON.stringify(faceExpMsg))
       }
     }

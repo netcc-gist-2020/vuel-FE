@@ -40,8 +40,11 @@ export default new Vuex.Store({
     removeUser (state, userId) {
       // state.guestList.delete(userId)
     },
-    changeExpression (state, userId, newInfo) {
+    changeExpression (state, newInfo) {
       // Load old info of the user (absence, expression, eye_dir)
+      console.log('Changed user: ' + newInfo.key)
+      console.log(newInfo.absence)
+      const userId = newInfo.key
       const userInfo = state.guestList[userId]
       if ('absence' in newInfo) {
         userInfo.absence = newInfo.absence
