@@ -82,20 +82,13 @@ export default {
       const video = this.video
       const canvas = this.$el.querySelector('canvas')
 
-      canvas.width = video.videoWidth
-      canvas.height = video.videoHeight
-
       const formData = new FormData()
       const base64 = canvas.toDataURL('image/jpeg')
 
       const blob = await fetch(base64).then(res => res.blob())
 
-      this.createWaitingAnimation(canvas)
-
       formData.append('user-face', blob)
       formData.append('user-name', this.name)
-
-      console.log('formData: ', formData)
 
       const config = {
         headers: {
@@ -103,8 +96,10 @@ export default {
         }
       }
 
+      this.createWaitingAnimation(canvas)
       axios.post(
-        'http://116.89.189.53:9080/signin/face',
+        'http://116.89.189.52:9080/signin/face',
+        // 'http://116.89.189.53:9080/signin/face',
         // 'http://203.237.53.84:9080/signin/face',
         formData,
         config
