@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoginFace: true,
-    amIHost: false,
+    amIHost: true,
     classRoomID: '',
     myID: '',
     guestList: {}
