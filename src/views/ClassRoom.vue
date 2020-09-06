@@ -33,8 +33,7 @@ export default {
     hostStream: null,
     myStream: null,
     socket: io.connect('http://116.89.189.14:3000'),
-    // socket2: io.connect('ws://116.89.189.44'),
-    socket2: new WebSocket('ws://116.89.189.44:8000'),
+    socket2: new WebSocket('ws://116.89.189.44:30003'),
     faceExpSocket: new WebSocket('ws://localhost:3000'),
     myPeer: new Peer(undefined, {
       host: '116.89.189.14',
@@ -94,7 +93,7 @@ export default {
             vm.$store.commit('removeUser', data.key)
             break
           case 'exp':
-            vm.$store.commit('changeExpression', data.key, data.expression)
+            vm.$store.commit('changeExpression', data.key, data)
             break
         }
       }

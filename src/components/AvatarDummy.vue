@@ -1,11 +1,6 @@
 <template>
   <div class="avatar">
-    <!-- <img v-if="index == 0" class="mx-5" src="../assets/avatar/basic01.png">
-    <img v-else-if="index == 1" class="mx-5" src="../assets/avatar/basic02.png">
-    <img v-else-if="index == 2" class="mx-5" src="../assets/avatar/basic03.png">
-    <img v-else-if="index == 3" class="mx-5" src="../assets/avatar/basic04.png">
-    <img v-else-if="index == 4" class="mx-5" src="../assets/avatar/basic05.png"> -->
-    <img class="mx-5" :src="getImageUrl()">
+    <img class="mx-5" :class="this.absence" :src="getImageUrl()">
   </div>
 </template>
 
@@ -16,21 +11,27 @@ export default {
   props: {
     userId: String,
     index: Number,
-    expression: String
+    absence: String,
+    expression: String,
+    eyeDir: String
   },
 
   data: () => ({
-    // expression: this.expression
   }),
 
   methods: {
-    getImageUrl (index, expression) {
+    getImageUrl (index, expression, eyeDir) {
       var images = require.context('../assets/avatar/', false, /\.png$/)
+      var typeEye = 0
       var typeExp = 0
-      const typeEye = 0
-      if (this.expression === 'neutral') typeExp = 0
-      else if (this.expression === 'happy') typeExp = 1
-      else typeExp = 2
+
+      if (this.eyeDir === 'left') typeEye = 1
+      else if (this.eyeDir === 'right') typeEye = 2
+      else typeEye = 0
+
+      if (this.expression === 'happy') typeExp = 1
+      else if (this.expression === 'sleepy') typeExp = 2
+      else typeExp = 0
       return images('./' + this.index + typeExp + typeEye + '.png') // TODO: 이름 형식 바꾸기
     }
   },
@@ -50,4 +51,7 @@ export default {
 </script>
 
 <style>
+.absence {
+  visibility: hidden;
+}
 </style>

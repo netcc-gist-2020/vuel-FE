@@ -49,6 +49,19 @@ export default {
     setClassRoomID () {
       this.$store.state.classRoomID = this.$el.querySelector('input').value
     }
+  },
+  // For testing
+  mounted () {
+    console.log('Welcome to MyPage')
+    const data = { A: { expression: 'neutral', absence: 'present' }, B: { expression: 'neutral', absence: 'present' } }
+    console.log(data)
+    const newData = Object.keys(data).map(function (key) {
+      return [String(key), data[key]]
+    })
+    for (var i = 0; i < newData.length; i++) {
+      console.log(i + ': ' + newData[i][1])
+    }
+    console.log(newData[0])
   }
 }
 </script>
