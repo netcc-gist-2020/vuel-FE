@@ -46,18 +46,13 @@ export default new Vuex.Store({
       console.log(newInfo.absence)
       const userId = newInfo.key
       const userInfo = state.guestList[userId]
-      if ('absence' in newInfo) {
-        userInfo.absence = newInfo.absence
-      }
-      if ('expression' in newInfo) {
-        userInfo.expression = newInfo.expression
-      }
-      if ('eye_dir' in newInfo) {
-        userInfo.eye_dir = newInfo.eye_dir
-      }
+
+      userInfo.absence = newInfo.absence ? newInfo.absence : userInfo.absence
+      userInfo.expression = newInfo.expression ? newInfo.expression : userInfo.expression
+      userInfo.eye_dir = newInfo.eye_dir ? newInfo.eye_dir : userInfo.eye_dir
+
       state.guestList = {
-        ...state.guestList,
-        userId: userInfo
+        ...state.guestList
       }
     }
     // TODO: 모듈화 할 것
