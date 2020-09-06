@@ -3,6 +3,7 @@
     <div class="avatarid">
       {{ userId }}
       {{ expression }}
+
     </div>
     <img class="mx-5" :src="getImageUrl()">
   </div>
@@ -63,8 +64,5 @@ export default {
 .avatarid {
   border-radius: 8px;
   border-color: black;
-}
-.absence {
-  visibility: hidden;
 }
 </style>

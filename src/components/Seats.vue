@@ -69,7 +69,7 @@ export default {
   bottom: 0;
   margin: auto;
   width: 100%;
-  height: 100px;
+  height: 65px;
   background: #CCB099;
 }
 
