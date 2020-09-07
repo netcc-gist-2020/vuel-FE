@@ -31,10 +31,13 @@ export default new Vuex.Store({
     addNewUser (state, userId, info = { absence: 'present', expression: 'neutral', eye_dir: 'center' }) {
       // TODO: expression은 서버에서 줘야 하는 정보
       // state.guestList[userId] = expression
+
+      state.guestList[userId] = info
+
       state.guestList = {
-        ...state.guestList,
-        userId: info
+        ...state.guestList
       }
+
       console.log('New guest: ' + userId)
     },
     removeUser (state, userId) {
@@ -42,10 +45,12 @@ export default new Vuex.Store({
     },
     changeExpression (state, newInfo) {
       // Load old info of the user (absence, expression, eye_dir)
-      console.log('Changed user: ' + newInfo.key)
-      console.log(newInfo.absence)
+      // console.log('Changed user: ' + newInfo.key)
+      // console.log(newInfo.absence)
       const userId = newInfo.key
       const userInfo = state.guestList[userId]
+
+      console.log('guestList: ', state.guestList)
 
       userInfo.absence = newInfo.absence ? newInfo.absence : userInfo.absence
       userInfo.expression = newInfo.expression ? newInfo.expression : userInfo.expression
