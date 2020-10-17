@@ -13,30 +13,39 @@
 
     </v-row>
 
-    <v-spacer></v-spacer>
-
-    <v-text-field
-      v-model="name"
-      label="NAME"
-      filled
-    ></v-text-field>
-
-    <v-row
-      align="center"
-      justify="center"
-    >
-      <v-btn @click="tryLogin"> LOGIN </v-btn>
+    <v-row class="mt-8">
+      <v-text-field
+        v-model="name"
+        label="NAME"
+        filled
+      ></v-text-field>
     </v-row>
 
-    <v-spacer></v-spacer>
-
     <v-row
       align="center"
       justify="center"
     >
-      <v-btn @click="disableLoginFace">
-        LOGIN WITH ID&PW
-      </v-btn>
+      <v-btn
+        color="#4B4DED"
+        width="320px"
+        height="48px"
+        @click="tryLogin"
+        dark
+      > LOGIN </v-btn>
+    </v-row>
+
+    <v-row
+      class="mt-6"
+      align="center"
+      justify="center"
+    >
+      <v-btn
+        color="#4B4DED"
+        width="320px"
+        height="48px"
+        @click="disableLoginFace"
+        outlined
+      > LOGIN WITH ID&PW </v-btn>
     </v-row>
   </v-container>
 </template>
@@ -109,10 +118,11 @@ export default {
           router.push('mypage')
         })
         .catch(err => {
-          this.keepDrawing = true
+          // this.keepDrawing = true
 
-          video.dispatchEvent(new Event('play'))
+          // video.dispatchEvent(new Event('play'))
 
+          console.log(video)
           console.log(err)
         })
     }
@@ -122,7 +132,7 @@ export default {
     const video = this.video
     const canvas = this.$el.querySelector('canvas')
     const vm = this
-    // video.muted = true
+    video.muted = true
 
     navigator.mediaDevices.getUserMedia({
       video: true,
@@ -162,5 +172,21 @@ export default {
 video {
   width: 320px;
   height: 320px;
+}
+
+canvas {
+  width: 320px;
+  height: 320px;
+  border-radius: 16px;
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+.v-btn__content {
+  font-weight: bold;
+}
+
+.v-btn--depressed {
+  border-width: medium;
 }
 </style>

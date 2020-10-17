@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app id="APP">
     <v-main>
       <!--<router-link to="/">home</router-link>-->
       <router-view></router-view>
@@ -21,4 +21,8 @@ export default {
 </script>
 
 <style scoped>
+#APP {
+  width: 100vw;
+  height: 100vh;
+}
 </style>

@@ -1,17 +1,20 @@
 <template>
-  <v-main fluid>
-    <v-row
-      align="center"
-      justify="center"
-    >
-      <h1>LOGIN</h1>
-    </v-row>
-    <v-spacer></v-spacer>
-    <v-row>
-      <LoginFace v-if="isLoginFace"/>
-      <LoginPassword v-else/>
-    </v-row>
-  </v-main>
+  <v-layout id="login" align-center>
+    <v-container class="pa-4 mt-n16" >
+      <v-row
+        align="center"
+        justify="center"
+        class="mb-4"
+      >
+        <h1>LOGIN</h1>
+      </v-row>
+      <v-spacer></v-spacer>
+      <v-row >
+        <LoginFace v-if="isLoginFace"/>
+        <LoginPassword v-else/>
+      </v-row>
+    </v-container>
+  </v-layout>
 </template>
 
 <script>
@@ -34,3 +37,18 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#login {
+  width: 100%;
+  height: 100%;
+}
+
+#login > div {
+  max-width: 320px;
+}
+
+h1 {
+  font-size: 3em;
+}
+</style>
