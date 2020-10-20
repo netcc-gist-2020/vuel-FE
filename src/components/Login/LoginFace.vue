@@ -87,6 +87,9 @@ export default {
       // console.log(image);
     },
     async tryLogin () {
+      // For Testing TODO: erase this line.
+      router.push('mypage')
+
       console.log('i\'ll try login!')
       const video = this.video
       const canvas = this.$el.querySelector('canvas')

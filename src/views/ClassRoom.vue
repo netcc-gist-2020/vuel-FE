@@ -1,12 +1,12 @@
 <template>
-  <v-container>
+  <v-container id="classroom">
     <v-row>
       <v-col cols="8">
         <img src="../assets/ClassVideo.png">
       </v-col>
       <v-col cols="4">
         <v-row style="height: 50%; overflow: hidden;">
-          <Video :mediaStream="hostStream"/>
+          <Video :mediaStream="hostStream" :toReverse="true"/>
         </v-row>
         <v-row style="height: 50%">
           <ChatRoom/>
@@ -20,37 +20,22 @@
 </template>
 
 <script>
+import { classRoomMixin } from '@/mixins/classRoomMixin.js'
 import ChatRoom from '@/components/ChatRoom'
 import Seats from '@/components/Seats'
 import Video from '@/components/Video'
-import io from 'socket.io-client'
-import Peer from 'peerjs'
 // import WebSocket from 'ws'
 
 export default {
   name: 'ClassRoom',
+  mixins: [classRoomMixin],
   data: () => ({
-    hostStream: null,
-    myStream: null,
-    socket: io.connect('http://116.89.189.14:3000'),
     socket2: new WebSocket('ws://116.89.189.44:30003'),
-    faceExpSocket: new WebSocket('ws://localhost:3000'),
-    myPeer: new Peer(undefined, {
-      host: '116.89.189.14',
-      port: '3001'
-    })
+    faceExpSocket: new WebSocket('ws://localhost:3000')
   }),
+  computed: {
+  },
   methods: {
-    connectToNewUser (userId, stream) {
-      const call = this.myPeer.call(userId, stream)
-      console.log('I\'m calling ' + userId)
-
-      call.on('stream', userVideoStream => {
-      })
-
-      call.on('close', () => {
-      })
-    }
   },
   components: {
     ChatRoom,
@@ -58,20 +43,6 @@ export default {
     Video
   },
   mounted () {
-    const ROOM_ID = this.$store.state.classRoomID
-    this.myPeer.on('open', id => {
-      this.socket.emit('join-room', ROOM_ID, id)
-    })
-
-    this.socket.on('user-connected', userId => {
-      console.log(userId + ' user is connected')
-      if (this.$store.state.amIHost === true) {
-        console.log('hey')
-        this.connectToNewUser(userId, this.myStream)
-      }
-    }
-    )
-
     this.socket2.onopen = () => {
       const openingMessage = { type: 'open', data: 'hello' }
       this.socket2.send(JSON.stringify(openingMessage))
@@ -99,6 +70,7 @@ export default {
         }
       }
     }
+
     this.faceExpSocket.onopen = () => {
       let faceExpMsg = { type: 'exp' }
       const vm = this
@@ -116,44 +88,15 @@ export default {
         vm.socket2.send(JSON.stringify(faceExpMsg))
       }
     }
-
-    this.myPeer.on('call', call => {
-      console.log('I got a call')
-      call.answer(this.myStream)
-      console.log('And I answered with ' + this.myStream)
-      call.on('stream', hostVideoStream => {
-        this.hostStream = hostVideoStream
-        console.log('I got a stream')
-      })
-    })
-
-    if (this.$store.state.amIHost === true) {
-      navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true
-      }).then(stream => {
-        this.myStream = stream
-        this.hostStream = this.myStream
-      })
-    } else {
-      navigator.mediaDevices.getUserMedia({
-        video: false,
-        audio: true
-      }).then(stream => {
-        this.myStream = stream
-      })
-    }
-  },
-
-  beforeDestroy () {
-    this.myStream.getTracks().forEach(track => {
-      track.stop()
-    })
   }
 }
 </script>
 
 <style scoped>
+#classroom {
+  max-width: 100%;
+}
+
 video {
   width: 100%;
   height: 100%;

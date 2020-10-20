@@ -63,13 +63,10 @@ export default new Vuex.Store({
     // TODO: 모듈화 할 것
   },
   getters: {
-    getUserList: (state) => {
-      console.log(state.guestList)
-      return state.guestList
-    },
-    getMyID: (state) => {
-      return state.myID
-    }
+    getUserList: state => state.guestList,
+    getMyID: state => state.myID,
+    getAmIHost: state => state.amIHost,
+    getRoomID: state => state.classRoomID
   },
   modules: {
   }

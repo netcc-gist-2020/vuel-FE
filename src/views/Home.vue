@@ -46,7 +46,6 @@ export default {
     signup () { this.$router.push('/signup') }
   },
   mounted () {
-    this.$store.state.isLoginFace = true
   }
 }
 </script>

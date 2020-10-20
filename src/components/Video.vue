@@ -1,6 +1,6 @@
 <template>
   <div class="text-center" style="width: 100%;">
-    <video :class="{ notLoaded: !isMediaLoaded }"></video>
+    <video :class="{ notLoaded: !isMediaLoaded, reversed: toReverse }"></video>
 
     <v-progress-circular :class="{ notLoaded: isMediaLoaded }"
       style="height: 100%; width: 70px;"
@@ -17,7 +17,8 @@ export default {
     isMediaLoaded: false
   }),
   props: {
-    mediaStream: MediaStream
+    mediaStream: MediaStream,
+    toReverse: Boolean
   },
   mounted () {
     this.mounted = true
@@ -43,6 +44,11 @@ export default {
 </script>
 
 <style>
+video.reversed {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
 .notLoaded {
   display: none;
 }
