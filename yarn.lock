@@ -5653,6 +5653,15 @@ invariant@^2.2.2, invariant@^2.2.4:
   dependencies:
     loose-envify "^1.0.0"
 
+ion-sdk-js@1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/ion-sdk-js/-/ion-sdk-js-1.0.14.tgz#96de734b68e8ed155cd757915279d9c295f5a075"
+  integrity sha512-g63z7oxYkNtKeXjk5IYOrvgxyacM0Q6DNb0tR7L/ukUJwSoTUEyDLRgw0VZEv1DB5lfz4eldV0yRyM53TbivXQ==
+  dependencies:
+    events "^3.0.0"
+    sdp-transform "^2.13.0"
+    uuid "^8.0.0"
+
 ip-regex@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npm.taobao.org/ip-regex/download/ip-regex-2.1.0.tgz#fa78bf5d2e6913c911ce9f819ee5146bb6d844e9"
@@ -8799,6 +8808,11 @@ scss-tokenizer@^0.2.3:
     js-base64 "^2.1.8"
     source-map "^0.4.2"
 
+sdp-transform@^2.13.0:
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/sdp-transform/-/sdp-transform-2.14.0.tgz#222452e79e335f000fb9a9a2850021265d1da12d"
+  integrity sha512-8ZYOau/o9PzRhY0aMuRzvmiM6/YVQR8yjnBScvZHSdBnywK5oZzAJK+412ZKkDq29naBmR3bRw8MFu0C01Gehg==
+
 sdp@^2.12.0, sdp@^2.6.0:
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/sdp/-/sdp-2.12.0.tgz#338a106af7560c86e4523f858349680350d53b22"
@@ -10223,6 +10237,11 @@ uuid@^3.3.2, uuid@^3.4.0:
   version "3.4.0"
   resolved "https://registry.npm.taobao.org/uuid/download/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha1-sj5DWK+oogL+ehAK8fX4g/AgB+4=
+
+uuid@^8.0.0:
+  version "8.3.1"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.1.tgz#2ba2e6ca000da60fce5a196954ab241131e05a31"
+  integrity sha512-FOmRr+FmWEIG8uhZv6C2bTgEVXsHk08kE7mPlrBbEe+c3r9pjceVPgupIfNIhc4yx55H69OXANrUaSuu9eInKg==
 
 v8-compile-cache@^2.0.3:
   version "2.1.1"

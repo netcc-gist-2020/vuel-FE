@@ -6,12 +6,16 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoginFace: true,
-    amIHost: true,
+    amIHost: false,
     classRoomID: '',
     myID: '',
     guestList: {}
   },
   mutations: {
+    setAmIHost (state, amIHost) {
+      console.log('mutations called!')
+      state.amIHost = amIHost
+    },
     setMyID (state, userId) {
       state.myID = userId
       console.log('My ID is ' + userId)
@@ -61,6 +65,14 @@ export default new Vuex.Store({
       }
     }
     // TODO: 모듈화 할 것
+  },
+  actions: {
+    setAmIHost ({ commit }, amIHost) {
+      console.log('actoins, setting amIHost', amIHost)
+      console.log(commit)
+      console.log(amIHost)
+      commit('setAmIHost', amIHost)
+    }
   },
   getters: {
     getUserList: state => state.guestList,

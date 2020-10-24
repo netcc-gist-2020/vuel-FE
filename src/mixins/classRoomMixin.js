@@ -46,16 +46,6 @@ export const classRoomMixin = {
       }
     })
 
-    this.myPeer.on('call', call => {
-      console.log('I got a call')
-      call.answer(this.myStream)
-      console.log('And I answered with ' + this.myStream)
-      call.on('stream', hostVideoStream => {
-        this.hostStream = hostVideoStream
-        console.log('I got a stream')
-      })
-    })
-
     if (this.getAmIHost === true) {
       navigator.mediaDevices.getUserMedia({
         video: true,
@@ -65,12 +55,24 @@ export const classRoomMixin = {
         this.hostStream = this.myStream
       })
     } else {
+      this.myPeer.on('call', call => {
+        console.log('I got a call')
+        call.answer(this.myStream)
+        console.log('And I answered with ' + this.myStream)
+        call.on('stream', hostVideoStream => {
+          this.hostStream = hostVideoStream
+          console.log('I got a stream')
+        })
+      })
+
+      /*
       navigator.mediaDevices.getUserMedia({
         video: false,
         audio: true
       }).then(stream => {
-        this.myStream = stream
+        this.host = stream
       })
+      */
     }
   },
 

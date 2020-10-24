@@ -53,6 +53,7 @@
 <script>
 import axios from 'axios'
 import router from '@/router'
+import { mapActions } from 'vuex'
 
 export default {
   data: () => ({
@@ -62,6 +63,9 @@ export default {
     keepDrawing: true
   }),
   methods: {
+    ...mapActions([
+      'setAmIHost'
+    ]),
     disableLoginFace () {
       this.$store.state.isLoginFace = false
     },
@@ -87,6 +91,12 @@ export default {
       // console.log(image);
     },
     async tryLogin () {
+      if (this.name === 'Jonghun Park') {
+        // TODO: erase this if.
+        this.setAmIHost(true)
+        console.log('I am the host!')
+      }
+
       // For Testing TODO: erase this line.
       router.push('mypage')
 

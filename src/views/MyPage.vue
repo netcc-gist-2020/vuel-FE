@@ -4,7 +4,7 @@
       <v-col class="left-col" cols="4">
         <h1 class="mb-4">Changa Lee</h1>
         <v-row class="my-2">
-          <v-btn text>Profile</v-btn>
+          <v-btn @click="beHost" text>Profile</v-btn>
         </v-row>
         <v-row class="my-2">
           <v-btn text>Class</v-btn>
@@ -36,13 +36,12 @@
                 filled
               ></v-text-field>
               <v-btn
-                @click="setClassRoomID"
+                @click="joinRoom"
                 color="#31D0AA"
                 dark
                 max-width="320px"
                 width="320px"
                 height="48px"
-                href="/classroom"
               >
                   JOIN
               </v-btn>
@@ -55,14 +54,31 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import router from '@/router'
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'MyPage',
   components: {
   },
+  computed: {
+    ...mapGetters([
+      'getAmIHost'
+    ])
+  },
   methods: {
-    setClassRoomID () {
+    ...mapActions([
+      'setAmIHost'
+    ]),
+
+    joinRoom () {
       this.$store.state.classRoomID = this.$el.querySelector('input').value
+      router.push('/classroom')
+    },
+
+    beHost () {
+      this.setAmIHost(true)
+      console.log('am i host? ', this.getAmIHost)
     }
   }
   // For testing

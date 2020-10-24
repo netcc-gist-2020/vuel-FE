@@ -30,8 +30,8 @@ export default {
   }),
   methods: {
     leave () {
-      const closingMessage = { type: 'close', data: { key: this.$store.state.myID } }
-      this.socket2.send(JSON.stringify(closingMessage))
+      // const closingMessage = { type: 'close', data: { key: this.$store.state.myID } }
+      // this.socket2.send(JSON.stringify(closingMessage))
       router.push('mypage')
     }
   },
