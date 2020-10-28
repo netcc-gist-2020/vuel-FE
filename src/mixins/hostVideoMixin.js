@@ -17,7 +17,7 @@ export const hostVideoMixin = {
   },
 
   created () {
-    this.signal = new IonSFUJSONRPCSignal('ws://localhost:7000/ws')
+    this.signal = new IonSFUJSONRPCSignal('ws://kvm05:7000/ws')
     this.client = new Client(this.getRoomID + '-host', this.signal)
   },
 

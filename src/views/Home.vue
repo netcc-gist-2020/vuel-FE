@@ -3,6 +3,7 @@
     <v-container pa-16 justify="center">
       <v-row justify="center">
         <v-img
+          id="logo"
           alt="Vue logo"
           src="../assets/CLOUD_CLASSROOM.png"
           max-width="450"
@@ -33,19 +34,29 @@
         </v-btn>
       </v-row>
     </v-container>
+    <!-- <SvgAvatar /> -->
   </v-layout>
 </template>
 
 <script>
+// import SvgAvatar from '@/components/ClassRoom/SvgAvatar'
+import gsap from 'gsap'
+
 export default {
   name: 'Home',
   components: {
+    // SvgAvatar
   },
   methods: {
     login () { this.$router.push('/login') },
     signup () { this.$router.push('/signup') }
   },
   mounted () {
+    gsap.from('#logo', {
+      duration: 2,
+      opacity: 0,
+      y: '30%'
+    })
   }
 }
 </script>
