@@ -72,7 +72,8 @@ export default {
   methods: {
     ...mapActions([
       'setUserName',
-      'setAmIHost'
+      'setAmIHost',
+      'setPictureBlob'
     ]),
 
     disableLoginFace () {
@@ -80,7 +81,8 @@ export default {
     },
 
     async tryLogin () {
-      this.setUserName(name)
+      this.setUserName(this.name)
+      console.log(`my name: ${this.getUserName}`)
 
       const video = this.video
       const canvas = this.$el.querySelector('canvas')
@@ -108,6 +110,7 @@ export default {
       )
         .then(response => {
           console.log(response)
+          this.setPictureBlob(blob)
           router.push('mypage')
         })
         .catch(err => {

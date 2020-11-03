@@ -2,7 +2,7 @@
   <v-container id="mypage">
     <v-row>
       <v-col class="left-col" cols="4">
-        <h1 class="mb-4">Changa Lee</h1>
+        <h1 class="mb-4">{{ getUserName }}</h1>
         <v-row class="my-2">
           <v-btn @click="beHost" text>Profile</v-btn>
         </v-row>
@@ -16,15 +16,10 @@
 
       <v-col cols="4">
         <v-container class="mid-col mt-n10">
-            <v-img
-              contain
-              max-width="25vw"
-              max-height="25vw"
-              width="25vw"
-              height="25vw"
+            <img
               class="profile-image mb-16"
-              src="../assets/chlee.png"
-            ></v-img>
+              :src="pictureURL"
+            />
             <v-form>
               <p>Classroom ID</p>
               <v-text-field
@@ -59,11 +54,14 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'MyPage',
-  components: {
-  },
+  data: () => ({
+    pictureURL: null
+  }),
   computed: {
     ...mapGetters([
-      'getAmIHost'
+      'getUserName',
+      'getAmIHost',
+      'getPictureBlob'
     ])
   },
   methods: {
@@ -80,6 +78,12 @@ export default {
       this.setAmIHost(true)
       console.log('am i host? ', this.getAmIHost)
     }
+  },
+
+  mounted () {
+    this.pictureURL = URL.createObjectURL(this.getPictureBlob)
+
+    console.log(this.pictureURL)
   }
   // For testing
   // mounted () {
@@ -130,6 +134,9 @@ p {
 }
 
 .profile-image {
+  object-fit: cover;
+  width: 30vw;
+  height: 30vw;
   border-radius: 50%;
   box-shadow: 0px 4px 8px -2px rgba(0, 0, 0, 0.6);
 }
