@@ -53,64 +53,45 @@
 <script>
 import axios from 'axios'
 import router from '@/router'
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import { videoToCanvasMixin } from '@/mixins/videoToCanvasMixin'
 
 export default {
+  mixins: [videoToCanvasMixin],
   data: () => ({
-    myStream: null,
-    name: '',
-    video: document.createElement('video'),
-    keepDrawing: true
+    name: ''
   }),
+
+  computed: {
+    ...mapGetters([
+      'getUserName',
+      'getAuthBaseURL'
+    ])
+  },
+
   methods: {
     ...mapActions([
+      'setUserName',
       'setAmIHost'
     ]),
+
     disableLoginFace () {
       this.$store.state.isLoginFace = false
     },
 
-    createWaitingAnimation (canvas) {
-      this.keepDrawing = false
-
-      const context = canvas.getContext('2d')
-      const image = context.getImageData(0, 0, canvas.width, canvas.height)
-      const data = image.data
-      let i = 0
-
-      for (i = 0; i < data.length; i += 4) {
-        const r = data[i]
-        const g = data[i + 1]
-        const b = data[i + 2]
-        const brightness = (r + g + b) / 3
-
-        data[i] = data[i + 1] = data[i + 2] = brightness
-      }
-
-      context.putImageData(image, 0, 0)
-      // console.log(image);
-    },
     async tryLogin () {
-      if (this.name === 'Jonghun Park') {
-        // TODO: erase this if.
-        this.setAmIHost(true)
-        console.log('I am the host!')
-      }
+      this.setUserName(name)
 
-      // For Testing TODO: erase this line.
-      router.push('mypage')
-
-      console.log('i\'ll try login!')
       const video = this.video
       const canvas = this.$el.querySelector('canvas')
 
       const formData = new FormData()
-      const base64 = canvas.toDataURL('image/jpeg')
-
-      const blob = await fetch(base64).then(res => res.blob())
+      const blob = await this.captureImageBaseURL()
 
       formData.append('user-face', blob)
-      formData.append('user-name', this.name)
+      formData.append('meta-data', JSON.stringify({
+        'user-name': this.getUserName
+      }))
 
       const config = {
         headers: {
@@ -119,10 +100,9 @@ export default {
       }
 
       this.createWaitingAnimation(canvas)
+
       axios.post(
-        'http://116.89.189.52:9080/signin/face',
-        // 'http://116.89.189.53:9080/signin/face',
-        // 'http://203.237.53.84:9080/signin/face',
+        `${this.getAuthBaseURL}/signin/face`,
         formData,
         config
       )
@@ -131,52 +111,12 @@ export default {
           router.push('mypage')
         })
         .catch(err => {
-          // this.keepDrawing = true
+          this.keepDrawing = true
+          video.dispatchEvent(new Event('play'))
 
-          // video.dispatchEvent(new Event('play'))
-
-          console.log(video)
           console.log(err)
         })
     }
-  },
-
-  mounted () {
-    const video = this.video
-    const canvas = this.$el.querySelector('canvas')
-    const vm = this
-    video.muted = true
-
-    navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: true
-    }).then(stream => {
-      video.srcObject = stream
-      this.myStream = stream
-      video.addEventListener('loadedmetadata', () => {
-        console.log('metadata is loaded')
-        video.play()
-      })
-    })
-
-    video.addEventListener('play', () => {
-      canvas.width = video.videoWidth
-      canvas.height = video.videoHeight
-      draw(video, canvas.getContext('2d'), video.videoWidth, video.videoHeight)
-    }, false)
-
-    function draw (video, context, width, height) {
-      if (vm.keepDrawing) {
-        context.drawImage(video, 0, 0, width, height)
-        setTimeout(draw, 10, video, context, width, height)
-      }
-    }
-  },
-
-  beforeDestroy () {
-    this.myStream.getTracks().forEach(track => {
-      track.stop()
-    })
   }
 }
 </script>

@@ -34,18 +34,15 @@
         </v-btn>
       </v-row>
     </v-container>
-    <!-- <SvgAvatar /> -->
   </v-layout>
 </template>
 
 <script>
-// import SvgAvatar from '@/components/ClassRoom/SvgAvatar'
 import gsap from 'gsap'
 
 export default {
   name: 'Home',
   components: {
-    // SvgAvatar
   },
   methods: {
     login () { this.$router.push('/login') },

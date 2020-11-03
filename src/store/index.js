@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import urls from './modules/urls'
+import userInfo from './modules/userInfo'
 
 Vue.use(Vuex)
 
@@ -81,5 +83,7 @@ export default new Vuex.Store({
     getRoomID: state => state.classRoomID
   },
   modules: {
+    urls,
+    userInfo
   }
 })

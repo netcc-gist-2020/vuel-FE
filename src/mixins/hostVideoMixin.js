@@ -12,12 +12,13 @@ export const hostVideoMixin = {
     ...mapGetters([
       'getRoomID',
       'getMyID',
-      'getAmIHost'
+      'getAmIHost',
+      'getSfuURL'
     ])
   },
 
   created () {
-    this.signal = new IonSFUJSONRPCSignal('ws://kvm05:7000/ws')
+    this.signal = new IonSFUJSONRPCSignal(this.getSfuURL)
     this.client = new Client(this.getRoomID + '-host', this.signal)
   },
 

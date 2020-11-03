@@ -5,7 +5,7 @@
       <rect class="face-front" x="5" y="5" width="190" height="190" fill="#EBDFDF"/>
       <circle class="eye left" cx="57" cy="68" r="18" fill="#C4C4C4"/>
       <circle class="eye right" cx="144" cy="68" r="18" fill="#C4C4C4"/>
-      <rect class="mouse" x="60" y="148" width="81" height="14" fill="#C4C4C4"/>
+      <rect class="mouth" x="60" y="148" width="81" height="14" fill="#C4C4C4"/>
     </svg>
 
     <div class="btns">
@@ -73,7 +73,7 @@ export default {
         y: eY
       })
 
-      gsap.to('.mouse', {
+      gsap.to('.mouth', {
         duration,
         x: mX,
         y: mY
@@ -105,6 +105,9 @@ svg {
   position: absolute;
   left: 20%;
   top: 70%;
+}
 
+.mouth {
+  fill: red;
 }
 </style>

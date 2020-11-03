@@ -1,8 +1,18 @@
+import { mapGetters } from 'vuex'
+
 export const expressionMixin = {
   data: () => ({
-    socket2: new WebSocket('ws://116.89.189.44:30003'),
-    faceExpSocket: new WebSocket('ws://localhost:3000')
+    socket2: new WebSocket(this.getFaceSockServerURL),
+    faceExpSocket: new WebSocket(this.getFaceExpURL)
   }),
+
+  computed: {
+    ...mapGetters([
+      'getUserName',
+      'getFaceExpURL',
+      'getFaceSockServerURL'
+    ])
+  },
 
   mounted () {
     this.socket2.onopen = () => {
@@ -34,7 +44,10 @@ export const expressionMixin = {
     }
 
     this.faceExpSocket.onopen = () => {
+      this.faceExpSocket.send(this.getUserName)
+
       let faceExpMsg = { type: 'exp' }
+
       const vm = this
       this.faceExpSocket.onmessage = function (event) {
         const message = JSON.parse(event.data)

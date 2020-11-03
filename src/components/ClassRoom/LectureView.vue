@@ -41,7 +41,8 @@ export default {
     ...mapGetters([
       'getRoomID',
       'getMyID',
-      'getAmIHost'
+      'getAmIHost',
+      'getSfuURL'
     ])
   },
   watch: {
@@ -87,7 +88,7 @@ export default {
     }
   },
   created () {
-    this.signal = new IonSFUJSONRPCSignal('ws://kvm05:7000/ws')
+    this.signal = new IonSFUJSONRPCSignal(this.getSfuURL)
     this.client = new Client(this.getRoomID + '-lecture', this.signal)
   },
   mounted () {
