@@ -14,7 +14,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <!-- <Seats :socket2="socket2"/> -->
+      <Seats :socket2="socket2"/>
     </v-row>
   </v-container>
 </template>
@@ -23,17 +23,18 @@
 import { hostVideoMixin } from '@/mixins/hostVideoMixin.js'
 // import { expressionMixin } from '@/mixins/expressionMixin.js'
 // import ChatRoom from '@/components/ChatRoom'
-// import Seats from '@/components/Seats'
+import Seats from '@/components/Seats'
+import { classRoomMixin } from '@/mixins/classRoomMixin.js'
 import Video from '@/components/Video'
 import LectureView from '@/components/ClassRoom/LectureView'
 // import WebSocket from 'ws'
 
 export default {
   name: 'ClassRoom',
-  mixins: [hostVideoMixin],
+  mixins: [hostVideoMixin, classRoomMixin],
   components: {
     // ChatRoom,
-    // Seats,
+    Seats,
     Video,
     LectureView
   },
