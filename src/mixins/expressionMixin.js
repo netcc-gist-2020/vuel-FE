@@ -2,8 +2,10 @@ import { mapGetters } from 'vuex'
 
 export const expressionMixin = {
   data: () => ({
-    socket2: new WebSocket(this.getFaceSockServerURL),
-    faceExpSocket: new WebSocket(this.getFaceExpURL)
+    // socket2: new WebSocket(this.getFaceSockServerURL),
+    // faceExpSocket: new WebSocket(this.getFaceExpURL)
+    socket2: null,
+    faceExpSocket: null
   }),
 
   computed: {
@@ -12,6 +14,11 @@ export const expressionMixin = {
       'getFaceExpURL',
       'getFaceSockServerURL'
     ])
+  },
+
+  created () {
+    this.socket2 = new WebSocket(this.getFaceSockServerURL)
+    this.faceExpSocket = new WebSocket(this.getFaceExpURL)
   },
 
   mounted () {

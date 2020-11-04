@@ -14,7 +14,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <Seats :socket2="socket2"/>
+      <Seats/>
     </v-row>
   </v-container>
 </template>
