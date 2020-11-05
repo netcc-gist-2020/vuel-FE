@@ -51,7 +51,8 @@ export default new Vuex.Store({
     },
     changeExpression (state, newInfo) {
       // Load old info of the user (absence, expression, eye_dir)
-      console.log('Changed user: ' + newInfo)
+      console.log('Changed user: ' + newInfo.key)
+      console.log('Changed expression: ' + newInfo.expression)
       // console.log(newInfo.absence)
       const userId = newInfo.key
       const userInfo = state.guestList[userId]
