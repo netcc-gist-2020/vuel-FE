@@ -1,8 +1,17 @@
 <template>
   <v-container fluid class="seats">
     <v-row justify="center">
-      <!-- <svgAvatar2 v-for="(info, id) in guests" :key="info[0]" :index="id" :absence="info[1].absence" :expression="info[1].expression" :eyeDir="info[1].eye_dir" :userId="info[0]"/> -->
-      <svgAvatar2/>
+      <svgAvatar2 class="avatar"/>
+      <svgAvatar2
+        class="avatar"
+        v-for="(info, id) in guests"
+        :key="info[0]"
+        :index="id"
+        :absence="info[1].absence"
+        :expression="info[1].expression"
+        :eyeDir="info[1].eye_dir"
+        :userId="info[0]"
+      />>
       <v-row justify="end" align="end" class="desk">
           <v-btn class="ma-3"> MUTE </v-btn>
           <v-btn class="ma-3"> AUTH </v-btn>
@@ -26,6 +35,7 @@ export default {
     svgAvatar2
   },
   data: () => ({
+    guests: []
   }),
   methods: {
     leave () {
@@ -41,10 +51,10 @@ export default {
   },
   watch: {
     guestList (val) {
-      console.log(val)
       this.guests = Object.keys(val).map(function (key) {
         return [String(key), val[key]]
       })
+      console.log('guestList in seats: ', this.guests)
     }
   },
   mounted () {
@@ -68,6 +78,9 @@ export default {
   width: 100%;
   height: 65px;
   background: #CCB099;
+}
+.avatar {
+  width: 10%;
 }
 
 </style>

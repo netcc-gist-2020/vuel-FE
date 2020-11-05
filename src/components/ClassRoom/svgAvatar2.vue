@@ -128,7 +128,12 @@ export default {
   watch: {
     expression (exp) {
       console.log('Expression for svg avatar is: ' + exp)
-      this.expression = exp
+      this.getExpression(exp, this.eyeDir)
+      // this.expression = exp
+    },
+    eyeDir (edir) {
+      this.getExpression(this.expression, edir)
+      // this.eyeDir = edir
     }
   },
   mounted () {

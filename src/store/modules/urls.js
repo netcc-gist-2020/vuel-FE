@@ -1,7 +1,8 @@
 const state = {
   sfuURL: 'ws://kvm05:7000/ws',
   faceExpURL: 'ws://localhost:3000',
-  faceSockServerURL: 'ws://116.89.189.44:30003',
+  // faceSockServerURL: 'ws://116.89.189.44:30003',
+  faceSockServerURL: 'ws://116.89.189.56:8080',
   authBaseURL: 'http://116.89.189.53:8081'
 }
 
