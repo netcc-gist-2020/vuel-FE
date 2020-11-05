@@ -24,9 +24,7 @@ export default {
   components: {
     svgAvatar2
   },
-  props: ['socket2'],
   data: () => ({
-    // guests: []
   }),
   methods: {
     leave () {
@@ -35,7 +33,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      guests: 'getUsers'
+      guests: 'getUserList'
     })
   },
   watch: {
