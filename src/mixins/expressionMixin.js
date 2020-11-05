@@ -28,7 +28,8 @@ export const expressionMixin = {
       const vm = this
       this.socket2.onmessage = function (event) {
         const message = JSON.parse(event.data)
-        // console.log(message)
+        console.log('Message from server: ', message)
+
         const { type, data } = message
         switch (type) {
           case 'welcome':
@@ -43,7 +44,8 @@ export const expressionMixin = {
             vm.$store.commit('removeUser', data.key)
             break
           case 'exp':
-            console.log('Expression changed: ' + data)
+            console.log('Whole part of data:', data)
+            console.log('Expression changed: ', data.key)
             vm.$store.commit('changeExpression', data)
             break
         }
@@ -66,7 +68,7 @@ export const expressionMixin = {
           }
         }
         // console.log('Face expression message: ')
-        // console.log(faceExpMsg) // 잘 됨
+        console.log('Face expression message: ', faceExpMsg) // 잘 됨
         vm.socket2.send(JSON.stringify(faceExpMsg))
       }
     }

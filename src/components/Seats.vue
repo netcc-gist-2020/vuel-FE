@@ -1,7 +1,8 @@
 <template>
   <v-container fluid class="seats">
     <v-row justify="center">
-      <svgAvatar2 v-for="(info, id) in guests" :key="info[0]" :index="id" :absence="info[1].absence" :expression="info[1].expression" :eyeDir="info[1].eye_dir" :userId="info[0]"/>
+      <!-- <svgAvatar2 v-for="(info, id) in guests" :key="info[0]" :index="id" :absence="info[1].absence" :expression="info[1].expression" :eyeDir="info[1].eye_dir" :userId="info[0]"/> -->
+      <svgAvatar2/>
       <v-row justify="end" align="end" class="desk">
           <v-btn class="ma-3"> MUTE </v-btn>
           <v-btn class="ma-3"> AUTH </v-btn>
@@ -28,6 +29,8 @@ export default {
   }),
   methods: {
     leave () {
+      const closingMessage = { type: 'close', data: { key: this.$store.state.myID } }
+      this.socket2.send(JSON.stringify(closingMessage))
       router.push('mypage')
     }
   },

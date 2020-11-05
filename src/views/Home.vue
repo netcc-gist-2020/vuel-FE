@@ -32,6 +32,17 @@
         >
           SIGN UP
         </v-btn>
+
+        <v-btn
+          color="#8C8CA1"
+          width="245px"
+          height="48px"
+          dark
+          @click="mypage"
+          >
+          <!--<router-link to="/login">LOGIN</router-link>-->
+          MYPAGE
+        </v-btn>
       </v-row>
     </v-container>
   </v-layout>
@@ -46,7 +57,8 @@ export default {
   },
   methods: {
     login () { this.$router.push('/login') },
-    signup () { this.$router.push('/signup') }
+    signup () { this.$router.push('/signup') },
+    mypage () { this.$router.push('/mypage') }
   },
   mounted () {
     gsap.from('#logo', {

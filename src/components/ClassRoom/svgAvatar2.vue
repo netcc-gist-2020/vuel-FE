@@ -55,7 +55,7 @@ export default {
     index: Number,
     absence: String,
     expression: String,
-    eyeDir: toString
+    eyeDir: String
   },
   data: () => ({
 
@@ -129,7 +129,7 @@ export default {
   },
   watch: {
     expression (exp) {
-      console.log(exp)
+      console.log('Expression for svg avatar is: ' + exp)
       this.expression = exp
     }
   },
