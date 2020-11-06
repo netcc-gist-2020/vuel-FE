@@ -1,7 +1,9 @@
 <template>
   <v-container fluid class="seats">
     <v-row justify="center">
+      <!--
       <svgAvatar2 class="avatar"/>
+      -->
       <svgAvatar2
         class="avatar"
         v-for="(info, id) in guests"
@@ -11,9 +13,9 @@
         :expression="info[1].expression"
         :eyeDir="info[1].eye_dir"
         :userId="info[0]"
-      />>
+      />
       <v-row justify="end" align="end" class="desk">
-          <v-btn class="ma-3"> MUTE </v-btn>
+          <v-btn @click="showGuests" class="ma-3"> MUTE </v-btn>
           <v-btn class="ma-3"> AUTH </v-btn>
           <v-btn class="ma-3" color="error" @click="leave"> LEAVE </v-btn>
       </v-row>
@@ -41,21 +43,22 @@ export default {
       const closingMessage = { type: 'close', data: { key: this.$store.state.myID } }
       this.socket2.send(JSON.stringify(closingMessage))
       router.push('mypage')
+    },
+    showGuests () {
+      console.log(this.guests)
     }
   },
   computed: {
-    ...mapGetters({
-      guests: 'getUserList'
-    })
-  },
-  watch: {
-    guestList (val) {
-      this.guests = Object.keys(val).map(function (key) {
-        return [String(key), val[key]]
+    ...mapGetters(['getUserList']),
+    guests () {
+      return Object.keys(this.getUserList).map(key => {
+        return [String(key), this.getUserList[key]]
       })
-      console.log('guestList in seats: ', this.guests)
     }
   },
+  watch: {
+  },
+
   mounted () {
     console.log(this.guestList)
   }
@@ -79,7 +82,7 @@ export default {
   background: #CCB099;
 }
 .avatar {
-  width: 40%;
+  width: 10%;
   z-index: 30;
 }
 
