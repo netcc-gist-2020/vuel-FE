@@ -35,7 +35,6 @@ export default {
     svgAvatar2
   },
   data: () => ({
-    guests: []
   }),
   methods: {
     leave () {
@@ -80,7 +79,8 @@ export default {
   background: #CCB099;
 }
 .avatar {
-  width: 10%;
+  width: 40%;
+  z-index: 30;
 }
 
 </style>
