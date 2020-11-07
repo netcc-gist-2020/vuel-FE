@@ -26,19 +26,31 @@ export default {
 
   methods: {
     async getStatistic () {
+      this.removeStatistic()
       console.log(`Am I host: ${this.getAmIHost}`)
       axios.get(
         `${this.getMonitoringServerURL}/classroom`
       )
         .then(response => {
-          console.log(response)
-          this.guestStats = Object.keys(response).map(key => {
-            return [String(key), response[key]]
-          })
+          console.log('Response data: ', response.data[0])
+          const numData = response.data.length
+          console.log(numData)
+          for (var i = 0; i < numData; i++) {
+            const newArr = []
+            newArr.push(String(response.data[i].key))
+            newArr.push(response.data[i].exp_duration)
+            this.guestStats.push(
+              newArr
+            )
+          }
+          console.log(this.guestStats[0])
         })
         .catch(err => {
           console.log(err)
         })
+    },
+    removeStatistic () {
+      this.guestStats = []
     }
   }
 }
