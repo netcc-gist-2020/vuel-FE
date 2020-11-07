@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <img :class="{ disappear: isStreaming }" src="@/assets/ClassVideo.png">
-    <div :class="{ disappear: !isStreaming }">
+  <div class="lecview">
+    <img :class="{ disappear: isStreaming }" src="@/assets/4k_test_img.jpg">
+    <div id="vid" :class="{ disappear: !isStreaming }">
       <Video :mediaStream="lectureStream" :toReverse="false"/>
       <p> {{ sourcename }} </p>
     </div>
@@ -118,7 +118,20 @@ export default {
 </script>
 
 <style>
+.lecview {
+  background: black;
+}
+img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
 .disappear {
   display: none;
+}
+
+#vid {
+  width: 100%;
+  height: auto;
 }
 </style>

@@ -6,7 +6,11 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import { gsap } from 'gsap'
 import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'
+import VueFullPage from 'vue-fullpage.js'
+import fullscreen from 'vue-fullscreen'
 
+Vue.use(VueFullPage)
+Vue.use(fullscreen)
 gsap.registerPlugin(MorphSVGPlugin)
 
 Vue.config.productionTip = false

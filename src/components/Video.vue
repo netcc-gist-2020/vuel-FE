@@ -26,7 +26,7 @@ export default {
   watch: {
     mediaStream: function () {
       if (this.mounted !== true ||
-          this.mediaStream === null) {
+        this.mediaStream === null) {
         return
       }
 

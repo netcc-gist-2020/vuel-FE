@@ -1,26 +1,15 @@
 <template>
   <v-container fluid class="seats">
-    <v-row justify="center">
-      <!--
-      <svgAvatar2 class="avatar"/>
-      -->
-      <svgAvatar2
-        class="avatar"
-        v-for="(info, id) in guests"
-        :key="info[0]"
-        :index="id"
-        :absence="info[1].absence"
-        :expression="info[1].expression"
-        :eyeDir="info[1].eye_dir"
-        :userId="info[0]"
-      />
-      <v-row justify="end" align="end" class="desk">
-          <v-btn @click="showGuests" class="ma-3"> MUTE </v-btn>
-          <v-btn class="ma-3"> AUTH </v-btn>
-          <v-btn class="ma-3" color="error" @click="leave"> LEAVE </v-btn>
-      </v-row>
-    </v-row>
-
+    <svgAvatar2
+      class="avatar"
+      v-for="(info, id) in guests"
+      :key="info[0]"
+      :index="id"
+      :absence="info[1].absence"
+      :expression="info[1].expression"
+      :eyeDir="info[1].eye_dir"
+      :userId="info[0]"
+    />
   </v-container>
 </template>
 
@@ -78,7 +67,7 @@ export default {
   bottom: 0;
   margin: auto;
   width: 100%;
-  height: 65px;
+  height: 100%;
   background: #CCB099;
 }
 .avatar {
