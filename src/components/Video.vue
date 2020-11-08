@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center" style="width: 100%;">
+  <div class="align-center text-center" style="width: 100%; height: 100%">
     <video :class="{ notLoaded: !isMediaLoaded, reversed: toReverse }"></video>
 
     <v-progress-circular :class="{ notLoaded: isMediaLoaded }"
@@ -43,7 +43,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+video {
+  width: 100%;
+  height: 100%;
+}
+
 video.reversed {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
