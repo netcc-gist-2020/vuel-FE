@@ -48,7 +48,11 @@ const mutations = {
     console.log('New guest: ' + userId)
   },
   removeUser (state, userId) {
-    // state.guestList.delete(userId)
+    console.log('removing user', userId)
+    const newGuestList = { ...state.guestList }
+    delete newGuestList[userId]
+
+    state.guestList = newGuestList
   },
   changeExpression (state, newInfo) {
     // Load old info of the user (absence, expression, eye_dir)

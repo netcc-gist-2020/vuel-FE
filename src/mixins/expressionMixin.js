@@ -1,4 +1,4 @@
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export const expressionMixin = {
   data: () => ({
@@ -14,6 +14,10 @@ export const expressionMixin = {
       'getFaceExpURL',
       'getFaceSockServerURL'
     ])
+  },
+
+  methods: {
+    ...mapActions(['leaveRoom'])
   },
 
   created () {
@@ -41,12 +45,15 @@ export const expressionMixin = {
             vm.$store.commit('addNewUser', data.key)
             break
           case 'bye':
-            vm.$store.commit('removeUser', data.key)
+            vm.leaveRoom()
             break
           case 'exp':
             console.log('Whole part of data:', data)
             console.log('Expression changed: ', data.key)
             vm.$store.commit('changeExpression', data)
+            break
+          case 'exit':
+            vm.$store.commit('removeUser', data.key)
             break
         }
       }
@@ -72,5 +79,12 @@ export const expressionMixin = {
         vm.socket2.send(JSON.stringify(faceExpMsg))
       }
     }
+  },
+
+  beforeDestroy () {
+    const closingMessage = { type: 'close', data: { key: this.$store.state.myID } }
+    this.socket2.send(JSON.stringify(closingMessage))
+
+    this.leaveRoom()
   }
 }
