@@ -109,6 +109,7 @@ export default {
   grid-template-rows: repeat(3, 33%);
   grid-template-columns: repeat(3, 33%);
   grid-auto-flow: row;
+  justify-items: center;
 }
 .item:nth-child(4) {
   grid-row: span 2;

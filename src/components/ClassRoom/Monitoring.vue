@@ -1,9 +1,9 @@
 <template>
 <div class="monitoring list">
-<ul v-for="(item, id) in guestStats" :key="id">
-    {{item[0]}} - {{item[1]}} - {{item[2]}} - {{item[3]}}
-</ul>
-<v-btn @click="getStatistic"> GET DATA </v-btn>
+<!-- <ul v-for="(item, id) in guestStats" :key="id"> -->
+    <!-- {{item[0]}} - {{item[1]}} - {{item[2]}} - {{item[3]}}
+</ul> -->
+<!-- <v-btn @click="getStatistic"> GET DATA </v-btn> -->
   <GChart
     type="BarChart"
     :data="chartData"
@@ -74,6 +74,9 @@ export default {
     removeStatistic () {
       this.guestStats = []
     }
+  },
+  mounted () {
+    this.getStatistic()
   }
 }
 </script>

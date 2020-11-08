@@ -1,4 +1,5 @@
 <template>
+<div class="avatar-view">
   <BaseAvatar
     :userId="userId"
     :index="index"
@@ -6,8 +7,9 @@
     :expression="expression"
     :eyeDir="eyeDir"
   >
-    <BasicAvatar />
+  <BasicAvatar />
   </BaseAvatar>
+</div>
 </template>
 
 <script>
