@@ -6,7 +6,8 @@ const state = {
 
 const getters = {
   getUserName: state => state.userName,
-  getPictureBlob: state => state.pictureBlob
+  getPictureBlob: state => state.pictureBlob,
+  getAmIHost: state => state.amIHost
 }
 
 const actions = {
@@ -16,12 +17,19 @@ const actions = {
 
   setPictureBlob ({ commit }, blob) {
     commit('setPictureBlob', blob)
+  },
+
+  setAmIHost ({ commit }, amIHost) {
+    commit('setAmIHost', amIHost)
   }
 }
 
 const mutations = {
   setUserName (state, name) { state.userName = name },
-  setPictureBlob (state, blob) { state.pictureBlob = blob }
+  setPictureBlob (state, blob) { state.pictureBlob = blob },
+  setAmIHost (state, amIHost) {
+    state.amIHost = amIHost
+  }
 }
 
 export default {

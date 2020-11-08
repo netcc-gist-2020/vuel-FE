@@ -11,17 +11,10 @@ export default new Vuex.Store({
     isLoginFace: true
   },
   mutations: {
-    setAmIHost (state, amIHost) {
-      state.amIHost = amIHost
-    }
   },
   actions: {
-    setAmIHost ({ commit }, amIHost) {
-      commit('setAmIHost', amIHost)
-    }
   },
   getters: {
-    getAmIHost: state => state.amIHost
   },
   modules: {
     urls,
