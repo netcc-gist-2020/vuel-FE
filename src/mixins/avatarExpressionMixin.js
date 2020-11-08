@@ -10,7 +10,7 @@ export const avatarExpressionMixin = {
   },
 
   methods: {
-    my (selector) { return `.${this.userId} ${selector}` },
+    my (selector) { return `.id_${this.userId} ${selector}` },
 
     getExpression (expression, eyeDir) {
       console.log('expression: ', expression)

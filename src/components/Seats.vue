@@ -19,7 +19,7 @@
 import { expressionMixin } from '@/mixins/expressionMixin.js'
 import svgAvatar2 from '@/components/ClassRoom/svgAvatar2'
 import router from '@/router'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Seats',
@@ -30,9 +30,11 @@ export default {
   data: () => ({
   }),
   methods: {
+    ...mapActions(['leaveRoom']),
     leave () {
       const closingMessage = { type: 'close', data: { key: this.$store.state.myID } }
       this.socket2.send(JSON.stringify(closingMessage))
+      this.leaveRoom()
       router.push('mypage')
     },
     showGuests () {

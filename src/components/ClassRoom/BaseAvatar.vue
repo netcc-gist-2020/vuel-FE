@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap" :class="userId">
+  <div class="wrap" :class="'id_'+userId">
     <slot></slot>
     <div id="info">
       {{ userId }}
