@@ -1,45 +1,33 @@
 <template>
-  <full-page ref="fullpage" :options="options" :id="fullpage">
-    <!-- <div class="section">
-      <div class="LectureViewFull">
-        <LectureView/>
+  <div class="section">
+    <div class="container">
+      <div class="item i1">
+        <Video :mediaStream="hostStream" :toReverse="true"/>
+        <!-- <h1>TeacherView</h1> -->
       </div>
-    </div> -->
-    <div class="section">
-      <div class="container">
-        <div class="item i1">
-          <Video :mediaStream="hostStream" :toReverse="true"/>
-          <!-- <h1>TeacherView</h1> -->
-        </div>
-        <div class="item i2">
-          <fullscreen ref="fullscreen" @change="fullscreenChange">
-            <LectureView/>
-            <!-- <h1>LectureView</h1> -->
-          </fullscreen>
-          <button class="fsbtn" type="button" @click="toggle" >Fullscreen</button>
-        </div>
-        <div class="item i3">
-          <h1>Check Monitoring</h1>
-          <modal name="monitoring"
-          :adaptive="true"
-          :width="800"
-          :height="800"
-          >
-            <Monitoring/>
-          </modal>
-          <button @click="show">Monitor</button>
-        </div>
-        <div class="item i4">
-          <Seats/>
-        </div>
+      <div class="item i2">
+        <fullscreen ref="fullscreen" @change="fullscreenChange">
+          <LectureView/>
+          <!-- <h1>LectureView</h1> -->
+        </fullscreen>
+        <button class="fsbtn" type="button" @click="toggle" >Fullscreen</button>
+      </div>
+      <div class="item i3">
+        <h1>Check Monitoring</h1>
+        <modal name="monitoring"
+        :adaptive="true"
+        :width="800"
+        :height="800"
+        >
+          <Monitoring/>
+        </modal>
+        <button @click="show">Monitor</button>
+      </div>
+      <div class="item i4">
+        <Seats/>
       </div>
     </div>
-    <div class="section">
-      <div class="section3">
-        <h1>Section2</h1>
-      </div>
-    </div>
-  </full-page>
+  </div>
 </template>
 <script src="https://unpkg.com/vue-fullpage.js/dist/vue-fullpage.min.js"></script>
 <script>
@@ -97,10 +85,18 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://unpkg.com/fullpage.js/dist/fullpage.min.css");
-.container {
+* {
   max-width: 100%;
   max-height: 100%;
+}
+.section {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+}
+.container {
+
   margin: 0 auto;
   padding: 0 auto;
   display: grid;
@@ -109,7 +105,6 @@ export default {
   grid-template-rows: repeat(3, 33%);
   grid-template-columns: repeat(3, 33%);
   grid-auto-flow: row;
-  justify-items: center;
 }
 .item:nth-child(4) {
   grid-row: span 2;
@@ -134,6 +129,5 @@ button {
   bottom: 0px;
   right: 0px;
   color: black;
-  border: white;
 }
 </style>

@@ -7,7 +7,9 @@
     :expression="expression"
     :eyeDir="eyeDir"
   >
-  <BasicAvatar />
+  <div class="bav">
+    <BasicAvatar />
+  </div>
   </BaseAvatar>
 </div>
 </template>
@@ -37,3 +39,8 @@ export default {
   }
 }
 </script>
+<style>
+.bav {
+  width: 100%;
+}
+</style>

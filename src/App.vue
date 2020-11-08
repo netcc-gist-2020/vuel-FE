@@ -4,9 +4,9 @@
       <!--<router-link to="/">home</router-link>-->
       <router-view></router-view>
     </v-main>
-    <v-btn @click="goBack" class="debug">
+    <!-- <v-btn @click="goBack" class="debug">
       뒤로
-    </v-btn>
+    </v-btn> -->
   </v-app>
 </template>
 

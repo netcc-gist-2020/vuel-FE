@@ -1,10 +1,6 @@
 <template>
   <div class="wrap" :class="'id_'+userId">
     <slot></slot>
-    <div id="info">
-      {{ userId }}
-      {{ expression }}
-    </div>
     <!-- <v-row>
       <v-btn @click="click('happy')">happy</v-btn>
       <v-btn @click="click('normal')">normal</v-btn>
@@ -64,5 +60,8 @@ svg {
     margin-top: -20px;
     margin-left: 0px;
     text-align: center;
+}
+#info {
+  display: block;
 }
 </style>

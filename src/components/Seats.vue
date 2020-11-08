@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="seats">
+  <div class="seats">
     <svgAvatar2
       class="avatar"
       v-for="(info, id) in guests"
@@ -12,7 +12,7 @@
     />
     <button class="btns" @click=showGuests>ShowGuests</button>
     <button class="btns" @click=leave>Leave</button>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -59,12 +59,21 @@ export default {
 </script>
 
 <style scoped>
+* {
+  max-width: 100%;
+  max-height: 100%;
+}
 .seats {
-  background: #f1f1f1;
-  position: relative;
-  border-radius: 30px;
-  overflow: hidden;
-  min-height: 280px;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  padding: 0 auto;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-flow: row;
 }
 .desk {
   position: absolute;
