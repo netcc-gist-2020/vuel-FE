@@ -8,8 +8,8 @@
     <div class="section">
       <div class="container">
         <div class="item i1">
-          <!-- <Video :mediaStream="hostStream" :toReverse="true"/> -->
-          <h1>TeacherView</h1>
+          <Video :mediaStream="hostStream" :toReverse="true"/>
+          <!-- <h1>TeacherView</h1> -->
         </div>
         <div class="item i2">
           <fullscreen ref="fullscreen" @change="fullscreenChange">
@@ -17,10 +17,17 @@
             <!-- <h1>LectureView</h1> -->
           </fullscreen>
           <button class="fsbtn" type="button" @click="toggle" >Fullscreen</button>
-
         </div>
         <div class="item i3">
-          <h1>My Avatar</h1>
+          <h1>Check Monitoring</h1>
+          <modal name="monitoring"
+          :adaptive="true"
+          :width="800"
+          :height="800"
+          >
+            <Monitoring/>
+          </modal>
+          <button @click="show">Monitor</button>
         </div>
         <div class="item i4">
           <Seats/>
@@ -29,7 +36,7 @@
     </div>
     <div class="section">
       <div class="section3">
-        <Seats/>
+        <h1>Section2</h1>
       </div>
     </div>
   </full-page>
@@ -41,8 +48,10 @@ import { hostVideoMixin } from '@/mixins/hostVideoMixin.js'
 // import ChatRoom from '@/components/ChatRoom'
 import Seats from '@/components/Seats'
 import { classRoomMixin } from '@/mixins/classRoomMixin.js'
-// import Video from '@/components/Video'
+import Video from '@/components/Video'
 import LectureView from '@/components/ClassRoom/LectureView'
+import Myavatar from '@/components/ClassRoom/MyAvatar'
+import Monitoring from '@/components/ClassRoom/Monitoring'
 // import WebSocket from 'ws'
 
 export default {
@@ -51,9 +60,11 @@ export default {
   data () {
     return {
       options: {
-        licenseKey: 'LICENSEKEY HERE'
+        licenseKey: '21718E34-33EB4989-AC9C3BED-1D93842C'
       },
-      fullscreen: false
+      fullscreen: false,
+      modal: false,
+      message: ''
     }
   },
   methods: {
@@ -62,15 +73,25 @@ export default {
     },
     fullscreenChange (fullscreen) {
       this.fullscreen = fullscreen
+    },
+    show () {
+      this.$modal.show('monitoring')
+    },
+    hide () {
+      this.$modal.hide('monitoring')
     }
   },
   components: {
     // ChatRoom,
     Seats,
-    // Video,
-    LectureView
+    Video,
+    LectureView,
+    Myavatar,
+    Monitoring
   },
   computed: {
+  },
+  mounted () {
   }
 }
 </script>
@@ -81,7 +102,7 @@ export default {
   max-width: 100%;
   max-height: 100%;
   margin: 0 auto;
-  padding: 0px;
+  padding: 0 auto;
   display: grid;
   width: 100%;
   height: 100%;
@@ -98,7 +119,7 @@ export default {
 }
 .i2 {
   position: relative;
-  background: tomato;
+  background: black;
 }
 .i3 {
   background: burlywood;
@@ -110,6 +131,8 @@ button {
   display: block;
   position: absolute;
   bottom: 0px;
-  left: 0px;
+  right: 0px;
+  color: black;
+  border: white;
 }
 </style>

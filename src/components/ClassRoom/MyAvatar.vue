@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid class="seats">
-    <v-row justify="center">
+  <div>
+    <div class="fixed">
       <!--
       <svgAvatar2 class="avatar"/>
       -->
@@ -14,25 +14,22 @@
         :eyeDir="info[1].eye_dir"
         :userId="info[0]"
       />
-      <v-row justify="end" align="end" class="desk">
-          <v-btn @click="showGuests" class="ma-3"> MUTE </v-btn>
-          <v-btn class="ma-3"> AUTH </v-btn>
-          <v-btn class="ma-3" color="error" @click="leave"> LEAVE </v-btn>
-      </v-row>
-    </v-row>
-
-  </v-container>
+      <div class="buttons">
+        <button class="ma-3" @click="handsup"> Hands Up </button>
+        <button class="ma-3" color="error" @click="leave"> LEAVE </button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import { expressionMixin } from '@/mixins/expressionMixin.js'
+// import { expressionMixin } from '@/mixins/expressionMixin.js'
 import svgAvatar2 from '@/components/ClassRoom/svgAvatar2'
 import router from '@/router'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'Seats',
-  mixins: [expressionMixin],
+  name: 'Myavatar',
   components: {
     svgAvatar2
   },
@@ -44,8 +41,8 @@ export default {
       this.socket2.send(JSON.stringify(closingMessage))
       router.push('mypage')
     },
-    showGuests () {
-      console.log(this.guests)
+    handsup () {
+      console.log('handsup')
     }
   },
   computed: {
@@ -60,6 +57,7 @@ export default {
   },
 
   mounted () {
+    console.log(this.myHash())
     console.log(this.guestList)
   }
 }
@@ -73,17 +71,14 @@ export default {
   overflow: hidden;
   min-height: 280px;
 }
-.desk {
-  position: absolute;
-  bottom: 0;
-  margin: auto;
-  width: 100%;
-  height: 65px;
-  background: #CCB099;
-}
 .avatar {
   width: 10%;
   z-index: 30;
+}
+
+.btns {
+  position: fixed;
+  bottom: 10px;
 }
 
 </style>

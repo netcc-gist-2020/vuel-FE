@@ -10,6 +10,8 @@
       :eyeDir="info[1].eye_dir"
       :userId="info[0]"
     />
+    <button class="btns" @click=showGuests>ShowGuests</button>
+    <button class="btns" @click=leave>Leave</button>
   </v-container>
 </template>
 
