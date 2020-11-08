@@ -122,6 +122,7 @@ export default {
 .lecview {
   background: black;
   height: 100%;
+  align-items: center;
 }
 img {
   object-fit: contain;

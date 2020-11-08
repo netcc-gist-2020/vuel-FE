@@ -6,7 +6,7 @@
         <!-- <h1>TeacherView</h1> -->
       </div>
       <div class="item i2">
-        <fullscreen ref="fullscreen" @change="fullscreenChange">
+        <fullscreen class="lectureViewWrapper" ref="fullscreen" @change="fullscreenChange">
           <LectureView/>
           <!-- <h1>LectureView</h1> -->
         </fullscreen>
@@ -123,6 +123,11 @@ export default {
 .i4 {
   background: blue;
 }
+
+.lectureViewWrapper {
+  height: 100%;
+}
+
 button {
   display: block;
   position: absolute;
