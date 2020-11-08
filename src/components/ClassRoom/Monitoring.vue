@@ -5,11 +5,9 @@
 </ul>
 <v-btn @click="getStatistic"> GET DATA </v-btn>
   <GChart
-    :settings="{packages: ['bar']}"
+    type="BarChart"
     :data="chartData"
     :options="chartOptions"
-    :createChart="(el, google) => new google.charts.Bar(el)"
-    @ready="onChartReady"
   />
 </div>
 </template>
@@ -22,8 +20,17 @@ export default {
   name: 'Monitoring',
   data: () => ({
     guestStats: [],
-    chartsLib: null,
-    chartData: []
+    chartData: [],
+    chartOptions: {
+      chart: {
+        title: '[WIP] Monitoring using 100% stacked bars',
+        subtitle: 'Class Session 1'
+      },
+      isStacked: 'percent',
+      width: '100%',
+      height: 700,
+      bars: 'vertical'
+    }
   }),
   components: {
     GChart
@@ -32,21 +39,7 @@ export default {
     ...mapGetters([
       'getMonitoringServerURL',
       'getAmIHost'
-    ]),
-    chartOptions () {
-      if (!this.chartsLib) return null
-      return this.chartsLib.charts.Bar.convertOptions({
-        chart: {
-          title: '[WIP] Monitoring Students',
-          subtitle: '모여봐요 구름교실'
-        },
-        bars: 'vertical', // Required for Material Bar Charts.
-        hAxis: { format: 'decimal' },
-        height: 400,
-        colors: ['#1b9e77', '#d95f02', '#7570b3'],
-        isStacked: true
-      })
-    }
+    ])
   },
 
   methods: {
@@ -80,9 +73,6 @@ export default {
     },
     removeStatistic () {
       this.guestStats = []
-    },
-    onChartReady (chart, google) {
-      this.chartsLib = google
     }
   }
 }
