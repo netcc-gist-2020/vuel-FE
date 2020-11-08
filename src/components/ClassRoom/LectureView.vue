@@ -111,6 +111,7 @@ export default {
         console.log('lecture track')
         stream.preferLayer('high')
         this.lectureStream = stream
+        this.isStreaming = true
       }
     }
   }
@@ -120,6 +121,7 @@ export default {
 <style>
 .lecview {
   background: black;
+  height: 100%;
 }
 img {
   object-fit: contain;
@@ -132,6 +134,6 @@ img {
 
 #vid {
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 </style>
