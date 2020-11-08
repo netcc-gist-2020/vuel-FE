@@ -46,7 +46,7 @@ export default {
     guests () {
       return Object.keys(this.getUserList).map(key => {
         return [String(key), this.getUserList[key]]
-      })
+      }).sort()
     }
   },
   watch: {
