@@ -10,6 +10,8 @@ export const avatarExpressionMixin = {
   },
 
   methods: {
+    my (selector) { return `.${this.userId} ${selector}` },
+
     getExpression (expression, eyeDir) {
       console.log('expression: ', expression)
       if (eyeDir === 'left') this.lookLeft()
@@ -22,57 +24,57 @@ export const avatarExpressionMixin = {
     },
     rmSaliva () {
       const at = 0.3
-      gsap.to('#saliva', { opacity: 0, duration: 0.1 })
-      gsap.to('#saliva', { duration: at, y: -5 })
+      gsap.to(this.my('#saliva'), { opacity: 0, duration: 0.1 })
+      gsap.to(this.my('#saliva'), { duration: at, y: -5 })
     },
     normal () {
       const at = 0.3
       this.rmSaliva()
-      gsap.to('#norm_right', { duration: at, morphSVG: '#norm_right' })
-      gsap.to('#norm_left', { duration: at, morphSVG: '#norm_left' })
-      gsap.to('#mouth_center', { duration: at, morphSVG: '#mouth_center' })
+      gsap.to(this.my('#norm_right'), { duration: at, morphSVG: this.my('#norm_right') })
+      gsap.to(this.my('#norm_left'), { duration: at, morphSVG: this.my('#norm_left') })
+      gsap.to(this.my('#mouth_center'), { duration: at, morphSVG: this.my('#mouth_center') })
     },
     lookLeft () {
       const at = 0.3
       this.normal()
-      gsap.to('#face', { duration: at, morphSVG: '#face_left' })
-      gsap.to('#nose_center', { duration: at, morphSVG: '#nose_left' })
-      gsap.to('.eye', { duration: at, x: -10 })
-      gsap.to('#mouth_center', { duration: at, x: -10 })
+      gsap.to(this.my('#face'), { duration: at, morphSVG: this.my('#face_left') })
+      gsap.to(this.my('#nose_center'), { duration: at, morphSVG: this.my('#nose_left') })
+      gsap.to(this.my('.eye'), { duration: at, x: -10 })
+      gsap.to(this.my('#mouth_center'), { duration: at, x: -10 })
     },
     lookCenter () {
       const at = 0.3
       this.normal()
       this.rmSaliva()
-      gsap.to('#face', { duration: at, morphSVG: '#face' })
-      gsap.to('#nose_center', { duration: at, morphSVG: '#nose_center' })
-      gsap.to('.eye', { duration: at, x: 0 })
-      gsap.to('#mouth_center', { duration: at, x: 0 })
+      gsap.to(this.my('#face'), { duration: at, morphSVG: this.my('#face') })
+      gsap.to(this.my('#nose_center'), { duration: at, morphSVG: this.my('#nose_center') })
+      gsap.to(this.my('.eye'), { duration: at, x: 0 })
+      gsap.to(this.my('#mouth_center'), { duration: at, x: 0 })
     },
     lookRight () {
       const at = 0.3
       this.normal()
-      gsap.to('#face', { duration: at, morphSVG: '#face_right' })
-      gsap.to('#nose_center', { duration: at, morphSVG: '#nose_right' })
-      gsap.to('.eye', { duration: at, x: 10 })
-      gsap.to('#mouth_center', { duration: at, x: 10 })
+      gsap.to(this.my('#face'), { duration: at, morphSVG: this.my('#face_right') })
+      gsap.to(this.my('#nose_center'), { duration: at, morphSVG: this.my('#nose_right') })
+      gsap.to(this.my('.eye'), { duration: at, x: 10 })
+      gsap.to(this.my('#mouth_center'), { duration: at, x: 10 })
     },
     sleepy () {
       const at = 0.3
       this.lookCenter()
-      gsap.to('#norm_right', { duration: at, morphSVG: '#sleepy_right' })
-      gsap.to('#norm_left', { duration: at, morphSVG: '#sleepy_left' })
-      gsap.to('#mouth_center', { duration: at, morphSVG: '#mouth_sleepy' })
-      gsap.to('#saliva', { opacity: 100, duration: at })
-      gsap.to('#saliva', { duration: at, delay: at, y: 5 })
+      gsap.to(this.my('#norm_right'), { duration: at, morphSVG: this.my('#sleepy_right') })
+      gsap.to(this.my('#norm_left'), { duration: at, morphSVG: this.my('#sleepy_left') })
+      gsap.to(this.my('#mouth_center'), { duration: at, morphSVG: this.my('#mouth_sleepy') })
+      gsap.to(this.my('#saliva'), { opacity: 100, duration: at })
+      gsap.to(this.my('#saliva'), { duration: at, delay: at, y: 5 })
     },
     happy () {
       const at = 0.3
       console.log('trying to be happy')
       this.lookCenter()
-      gsap.to('#norm_right', { duration: at, morphSVG: '#happy_right' })
-      gsap.to('#norm_left', { duration: at, morphSVG: '#happy_left' })
-      gsap.to('#mouth_center', { duration: at, morphSVG: '#mouth_happy' })
+      gsap.to(this.my('#norm_right'), { duration: at, morphSVG: this.my('#happy_right') })
+      gsap.to(this.my('#norm_left'), { duration: at, morphSVG: this.my('#happy_left') })
+      gsap.to(this.my('#mouth_center'), { duration: at, morphSVG: this.my('#mouth_happy') })
     }
   },
   watch: {

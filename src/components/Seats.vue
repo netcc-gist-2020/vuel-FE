@@ -73,7 +73,7 @@ export default {
   background: #CCB099;
 }
 .avatar {
-  width: 10%;
+  width: 50%;
   z-index: 30;
 }
 

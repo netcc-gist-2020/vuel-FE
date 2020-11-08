@@ -1,18 +1,18 @@
 <template>
-  <div class="wrap">
+  <div class="wrap" :class="userId">
     <slot></slot>
     <div id="info">
       {{ userId }}
       {{ expression }}
     </div>
-    <!--
-    <v-btn @click="click('happy')">happy</v-btn>
-    <v-btn @click="click('normal')">normal</v-btn>
-    <v-btn @click="click('sleepy')">sleepy</v-btn>
-    <v-btn @click="click('right')">right</v-btn>
-    <v-btn @click="click('center')">center</v-btn>
-    <v-btn @click="click('left')">left</v-btn>
-    -->
+    <v-row>
+      <v-btn @click="click('happy')">happy</v-btn>
+      <v-btn @click="click('normal')">normal</v-btn>
+      <v-btn @click="click('sleepy')">sleepy</v-btn>
+      <v-btn @click="click('right')">right</v-btn>
+      <v-btn @click="click('center')">center</v-btn>
+      <v-btn @click="click('left')">left</v-btn>
+    </v-row>
   </div>
 </template>
 
