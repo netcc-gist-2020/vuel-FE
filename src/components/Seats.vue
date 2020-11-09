@@ -10,7 +10,6 @@
       :eyeDir="info[1].eye_dir"
       :userId="info[0]"
     />
-    <button class="btns" @click=showGuests>ShowGuests</button>
     <button class="btns" @click=leave>Leave</button>
   </div>
 </template>
@@ -71,9 +70,10 @@ export default {
   display: grid;
   width: 100%;
   height: 100%;
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr) 10%;
   grid-template-columns: repeat(6, 1fr);
   grid-auto-flow: row;
+  justify-items: center;
 }
 .desk {
   position: absolute;

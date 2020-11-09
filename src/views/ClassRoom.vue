@@ -13,7 +13,6 @@
         <button class="fsbtn" type="button" @click="toggle" >Fullscreen</button>
       </div>
       <div class="item i3">
-        <h1>Check Monitoring</h1>
         <modal name="monitoring"
         :adaptive="true"
         :width="800"
@@ -111,17 +110,18 @@ export default {
   grid-column: span 3;
 }
 .i1 {
-  background: orange;
+  background: white;
+  padding: 4%;
 }
 .i2 {
   position: relative;
-  background: black;
+  padding: 4%;
 }
 .i3 {
-  background: burlywood;
+  background: white;
 }
 .i4 {
-  background: blue;
+  background: white;
 }
 
 .lectureViewWrapper {
@@ -130,7 +130,6 @@ export default {
 
 button {
   display: block;
-  position: absolute;
   bottom: 0px;
   right: 0px;
   color: black;

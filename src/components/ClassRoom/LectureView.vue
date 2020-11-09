@@ -1,6 +1,6 @@
 <template>
   <div class="lecview">
-    <img :class="{ disappear: isStreaming }" src="@/assets/4k_test_img.jpg">
+    <img :class="{ disappear: isStreaming }" src="@/assets/transprepare.png">
     <div id="vid" :class="{ disappear: !isStreaming }">
       <Video :mediaStream="lectureStream" :toReverse="false"/>
       <p> {{ sourcename }} </p>
@@ -120,7 +120,7 @@ export default {
 
 <style>
 .lecview {
-  background: black;
+  background: white;
   height: 100%;
   align-items: center;
 }
