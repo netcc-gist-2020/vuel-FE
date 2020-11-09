@@ -21,8 +21,6 @@
           <Monitoring/>
         </modal>
         <button @click="show">Monitor</button>
-      </div>
-      <div class="item i4">
         <Seats/>
       </div>
     </div>
@@ -37,7 +35,6 @@ import Seats from '@/components/Seats'
 import { classRoomMixin } from '@/mixins/classRoomMixin.js'
 import Video from '@/components/Video'
 import LectureView from '@/components/ClassRoom/LectureView'
-import Myavatar from '@/components/ClassRoom/MyAvatar'
 import Monitoring from '@/components/ClassRoom/Monitoring'
 // import WebSocket from 'ws'
 
@@ -73,7 +70,6 @@ export default {
     Seats,
     Video,
     LectureView,
-    Myavatar,
     Monitoring
   },
   computed: {
@@ -102,12 +98,12 @@ export default {
   width: 100%;
   height: 100%;
   grid-template-rows: repeat(3, 33%);
-  grid-template-columns: repeat(3, 33%);
+  grid-template-columns: repeat(2, 50%);
   grid-auto-flow: row;
 }
-.item:nth-child(4) {
+.item:nth-child(3) {
   grid-row: span 2;
-  grid-column: span 3;
+  grid-column: span 2;
 }
 .i1 {
   background: white;
