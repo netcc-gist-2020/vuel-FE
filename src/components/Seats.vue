@@ -90,24 +90,22 @@ export default {
   display: grid;
   width: 100%;
   height: 100%;
-  grid-template-rows: repeat(5, 20%);
+  grid-template-rows: repeat(3, 33.333333%);
   grid-template-columns: repeat(5, 20%);
   grid-auto-flow: row;
   justify-items: center;
   border-style: solid;
-  border-color: tomato;
-  border-radius: 10px;
-  background: tomato;
+  border-color: #FAFAFA;
+  border-radius: 25px;
+  background: #FAFAFA;
 }
 .avatar {
   width: 40%;
   z-index: 30;
 }
 .btns {
-  grid-row: 5;
+  grid-row: 3;
   grid-column: 5;
-  color: white;
-  font-family: bold;
-  display: inline;
+  color: black;
 }
 </style>
