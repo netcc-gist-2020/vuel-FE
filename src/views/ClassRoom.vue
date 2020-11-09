@@ -3,49 +3,32 @@
     <div class="container">
       <div class="item i1">
         <Video :mediaStream="hostStream" :toReverse="true"/>
-        <!-- <h1>TeacherView</h1> -->
       </div>
       <div class="item i2">
         <fullscreen class="lectureViewWrapper" ref="fullscreen" @change="fullscreenChange">
           <LectureView/>
-          <!-- <h1>LectureView</h1> -->
+          <button class="fsbtn" type="button" @click="toggle" >Fullscreen</button>
         </fullscreen>
-        <button class="fsbtn" type="button" @click="toggle" >Fullscreen</button>
       </div>
       <div class="item i3">
-        <modal name="monitoring"
-        :adaptive="true"
-        :width="800"
-        :height="800"
-        >
-          <Monitoring/>
-        </modal>
-        <button @click="show">Monitor</button>
         <Seats/>
       </div>
     </div>
   </div>
 </template>
-<script src="https://unpkg.com/vue-fullpage.js/dist/vue-fullpage.min.js"></script>
 <script>
 import { hostVideoMixin } from '@/mixins/hostVideoMixin.js'
 // import { expressionMixin } from '@/mixins/expressionMixin.js'
-// import ChatRoom from '@/components/ChatRoom'
 import Seats from '@/components/Seats'
 import { classRoomMixin } from '@/mixins/classRoomMixin.js'
 import Video from '@/components/Video'
 import LectureView from '@/components/ClassRoom/LectureView'
-import Monitoring from '@/components/ClassRoom/Monitoring'
-// import WebSocket from 'ws'
 
 export default {
   name: 'ClassRoom',
   mixins: [hostVideoMixin, classRoomMixin],
   data () {
     return {
-      options: {
-        licenseKey: '21718E34-33EB4989-AC9C3BED-1D93842C'
-      },
       fullscreen: false,
       modal: false,
       message: ''
@@ -53,24 +36,16 @@ export default {
   },
   methods: {
     toggle () {
-      this.$refs['fullscreen'].toggle()
+      this.$refs.fullscreen.toggle()
     },
     fullscreenChange (fullscreen) {
       this.fullscreen = fullscreen
-    },
-    show () {
-      this.$modal.show('monitoring')
-    },
-    hide () {
-      this.$modal.hide('monitoring')
     }
   },
   components: {
-    // ChatRoom,
     Seats,
     Video,
-    LectureView,
-    Monitoring
+    LectureView
   },
   computed: {
   },
@@ -97,7 +72,7 @@ export default {
   display: grid;
   width: 100%;
   height: 100%;
-  grid-template-rows: repeat(3, 33%);
+  grid-template-rows: repeat(3, 32%);
   grid-template-columns: repeat(2, 50%);
   grid-auto-flow: row;
 }
@@ -106,22 +81,19 @@ export default {
   grid-column: span 2;
 }
 .i1 {
-  background: white;
   padding: 4%;
 }
 .i2 {
   position: relative;
   padding: 4%;
 }
-.i3 {
-  background: white;
-}
-.i4 {
-  background: white;
-}
-
 .lectureViewWrapper {
   height: 100%;
+}
+
+.fsbtn {
+  position: absolute;
+  margin-right: 8px;
 }
 
 button {

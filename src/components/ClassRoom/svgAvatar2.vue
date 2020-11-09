@@ -9,6 +9,9 @@
   >
   <div class="bav">
     <BasicAvatar />
+    <div id="idcard">
+      {{ userId }}
+    </div>
   </div>
   </BaseAvatar>
 </div>
@@ -41,6 +44,11 @@ export default {
 </script>
 <style>
 .bav {
+  position: relative;
   width: 100%;
+}
+.idcard {
+  position: absolute;
+  top: 100px;
 }
 </style>

@@ -10,23 +10,37 @@
       :eyeDir="info[1].eye_dir"
       :userId="info[0]"
     />
-    <button class="btns" @click=leave>Leave</button>
+    <div class="btns">
+      <button @click=leave>Leave</button>
+      <modal name="monitoring"
+        :adaptive="true"
+        :width="800"
+        :height="800"
+        >
+        <Monitoring/>
+      </modal>
+      <button @click="show">Monitor</button>
+    </div>
   </div>
 </template>
 
 <script>
+
 import { expressionMixin } from '@/mixins/expressionMixin.js'
 import svgAvatar2 from '@/components/ClassRoom/svgAvatar2'
 import router from '@/router'
 import { mapGetters, mapActions } from 'vuex'
+import Monitoring from '@/components/ClassRoom/Monitoring'
 
 export default {
   name: 'Seats',
   mixins: [expressionMixin],
   components: {
-    svgAvatar2
+    svgAvatar2,
+    Monitoring
   },
   data: () => ({
+    modal: false
   }),
   methods: {
     ...mapActions(['leaveRoom']),
@@ -38,6 +52,12 @@ export default {
     },
     showGuests () {
       console.log(this.guests)
+    },
+    show () {
+      this.$modal.show('monitoring')
+    },
+    hide () {
+      this.$modal.hide('monitoring')
     }
   },
   computed: {
@@ -75,19 +95,19 @@ export default {
   grid-auto-flow: row;
   justify-items: center;
   border-style: solid;
+  border-color: tomato;
   border-radius: 10px;
-}
-.desk {
-  position: absolute;
-  bottom: 0;
-  margin: auto;
-  width: 100%;
-  height: 100%;
-  background: #CCB099;
+  background: tomato;
 }
 .avatar {
-  width: 50%;
+  width: 40%;
   z-index: 30;
 }
-
+.btns {
+  grid-row: 5;
+  grid-column: 5;
+  color: white;
+  font-family: bold;
+  display: inline;
+}
 </style>
