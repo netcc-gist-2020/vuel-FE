@@ -7,6 +7,7 @@
 
     <div v-if="getAmIHost" class="btn-wrapper d-flex p-absolute selector">
       <v-select
+        height="0.4em"
         :items="mediaSourcesOptions"
         @change="selectSource"
         @click="getSources"
@@ -135,6 +136,8 @@ img {
   height: 100%;
 }
 .selector{
+  margin-top: -30px;
+  width: 84%;
   top: 10px;
 }
 </style>
