@@ -3,23 +3,25 @@
     <img :class="{ disappear: isStreaming }" src="@/assets/transprepare.png">
     <div id="vid" :class="{ disappear: !isStreaming }">
       <Video :mediaStream="lectureStream" :toReverse="false"/>
-      <p> {{ sourcename }} </p>
     </div>
 
     <div v-if="getAmIHost" class="btn-wrapper d-flex p-absolute selector">
-      <v-btn @click="popupMenu" fab> 선택 </v-btn>
-      <v-select :items=mediaSources label="Select" outlined></v-select>
+      <v-select
+        :items="mediaSourcesOptions"
+        @change="selectSource"
+        @click="getSources"
+        label="Select"
+        outlined
+      ></v-select>
     </div>
   </div>
 </template>
 
 <script>
 import { Client, IonSFUJSONRPCSignal, LocalStream } from 'ion-sdk-js'
-import { desktopCapturer, remote } from 'electron'
+import { desktopCapturer } from 'electron'
 import { mapGetters } from 'vuex'
 import Video from '@/components/Video'
-
-const { Menu } = remote
 
 export default {
   name: 'LectureView',
@@ -41,7 +43,14 @@ export default {
       'getMyID',
       'getAmIHost',
       'getSfuURL'
-    ])
+    ]),
+
+    mediaSourcesOptions () {
+      return this.mediaSources.map(ms => ({
+        text: ms.name,
+        value: ms
+      }))
+    }
   },
   watch: {
     mediaSources: {
@@ -53,8 +62,11 @@ export default {
     }
   },
   methods: {
-    popupMenu () {
-      this.mediaMenu.popup()
+    getSources () {
+      desktopCapturer.getSources({ types: ['window', 'screen'] })
+        .then(sources => {
+          this.mediaSources = sources
+        }).catch(console.log)
     },
     selectSource (source) {
       this.sourcename = source.name
@@ -88,22 +100,9 @@ export default {
   created () {
     this.signal = new IonSFUJSONRPCSignal(this.getSfuURL)
     this.client = new Client(this.getRoomID + '-lecture', this.signal)
-  },
-  mounted () {
     if (this.getAmIHost) {
-      desktopCapturer.getSources({ types: ['window', 'screen'] })
-        .then(sources => {
-          this.mediaSources = sources
-
-          this.mediaMenu = Menu.buildFromTemplate(
-            sources.map(source => ({
-              label: source.name,
-              click: () => this.selectSource(source)
-            }))
-          )
-
-          console.log(sources)
-        }).catch(console.log)
+      this.getSources()
+      console.log('mso', this.mediaSourcesOptions)
     } else {
       this.client.ontrack = (track, stream) => {
         console.log('lecture track')
