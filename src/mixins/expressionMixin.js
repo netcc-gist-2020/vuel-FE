@@ -31,7 +31,7 @@ export const expressionMixin = {
   },
 
   mounted () {
-    if (this.getAmIHost) {
+    if (this.getAmIHost && this.monitoringSocket) {
       this.monitoringSocket.onopen = () => {
         this.monitoringSocket.send(JSON.stringify('hello'))
       }
