@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import gsap from 'gsap'
+// import gsap from 'gsap'
 
 export default {
   name: 'Home',
@@ -61,11 +61,11 @@ export default {
     mypage () { this.$router.push('/mypage') }
   },
   mounted () {
-    gsap.from('#logo', {
-      duration: 2,
-      opacity: 0,
-      y: '30%'
-    })
+  //   gsap.from('#logo', {
+  //     duration: 2,
+  //     opacity: 0,
+  //     y: '30%'
+  //   })
   }
 }
 </script>

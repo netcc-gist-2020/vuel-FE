@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import { avatarExpressionMixin } from '@/mixins/avatarExpressionMixin.js'
+// import { avatarExpressionMixin } from '@/mixins/avatarExpressionMixin.js'
 
 export default {
   name: 'BaseAvatar',
-  mixins: [avatarExpressionMixin],
+  // mixins: [avatarExpressionMixin],
   props: {
     userId: String,
     index: Number,
