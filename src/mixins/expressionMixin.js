@@ -5,13 +5,15 @@ export const expressionMixin = {
     // socket2: new WebSocket(this.getFaceSockServerURL),
     // faceExpSocket: new WebSocket(this.getFaceExpURL)
     socket2: null,
-    faceExpSocket: null
+    faceExpSocket: null,
+    monitoringSocket: null
   }),
 
   computed: {
     ...mapGetters([
       'getUserName',
       'getFaceExpURL',
+      'getAmIHost',
       'getFaceSockServerURL'
     ])
   },
@@ -23,9 +25,18 @@ export const expressionMixin = {
   created () {
     this.socket2 = new WebSocket(this.getFaceSockServerURL)
     this.faceExpSocket = new WebSocket(this.getFaceExpURL)
+    if (this.getAmIHost) {
+      this.monitoringSocket = new WebSocket(this.getMonitoringServerURL)
+    }
   },
 
   mounted () {
+    if (this.getAmIHost) {
+      this.monitoringSocket.onopen = () => {
+        this.monitoringSocket.send(JSON.stringify('hello'))
+      }
+    }
+
     this.socket2.onopen = () => {
       const openingMessage = { type: 'open', data: 'hello' }
       this.socket2.send(JSON.stringify(openingMessage))
@@ -84,6 +95,12 @@ export const expressionMixin = {
   beforeDestroy () {
     const closingMessage = { type: 'close', data: { key: this.$store.state.myID } }
     this.socket2.send(JSON.stringify(closingMessage))
+    this.socket2.close()
+
+    if (this.getAmIHost) {
+      this.monitoringSocket.send(JSON.stringify('cancel'))
+      this.monitoringSocket.close()
+    }
 
     this.leaveRoom()
   }
