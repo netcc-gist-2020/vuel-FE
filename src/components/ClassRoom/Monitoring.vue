@@ -5,10 +5,12 @@
 </ul> -->
 <!-- <v-btn @click="getStatistic"> GET DATA </v-btn> -->
   <GChart
+    v-if="isEmptyResponse"
     type="BarChart"
     :data="chartData"
     :options="chartOptions"
   />
+  <h1 v-else>There is no data!</h1>
 </div>
 </template>
 
@@ -30,7 +32,8 @@ export default {
       width: '100%',
       height: 700,
       bars: 'vertical'
-    }
+    },
+    isEmptyResponse: true
   }),
   components: {
     GChart
@@ -50,6 +53,10 @@ export default {
         `${this.getMonitoringServerURL}/classroom`
       )
         .then(response => {
+          if (response.data[0] === undefined) {
+            this.isEmptyResponse = false
+            console.log('Empty Response')
+          }
           console.log('Response data: ', response.data[0])
           const numData = response.data.length
           console.log(numData)
