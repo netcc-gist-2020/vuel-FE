@@ -35,3 +35,9 @@
     <path id="hand" class="hand" d="M63 149L79 149.737L80 177H61.5L63 149Z" fill="#723E9A"/>
   </svg>
 </template>
+<style scoped>
+svg {
+  width: 12em;
+  height: 12em;
+}
+</style>

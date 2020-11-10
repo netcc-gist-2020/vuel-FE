@@ -6,11 +6,9 @@
       <p> {{ sourcename }} </p>
     </div>
 
-    <div v-if="getAmIHost" class="btn-wrapper d-flex p-absolute">
-      <v-btn
-        @click="popupMenu"
-        fab
-      > 선택</v-btn>
+    <div v-if="getAmIHost" class="btn-wrapper d-flex p-absolute selector">
+      <v-btn @click="popupMenu" fab> 선택 </v-btn>
+      <v-select :items=mediaSources label="Select" outlined></v-select>
     </div>
   </div>
 </template>
@@ -136,5 +134,8 @@ img {
 #vid {
   width: 100%;
   height: 100%;
+}
+.selector{
+  top: 10px;
 }
 </style>

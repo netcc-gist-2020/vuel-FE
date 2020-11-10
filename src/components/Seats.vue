@@ -10,15 +10,17 @@
       :eyeDir="info[1].eye_dir"
       :userId="info[0]"
     />
-    <div class="btns">
+    <div class="lb">
       <button @click=leave>Leave</button>
-      <modal name="monitoring"
-        :adaptive="true"
-        :width="800"
-        :height="800"
-        >
-        <Monitoring/>
-      </modal>
+    </div>
+    <modal name="monitoring"
+      :adaptive="true"
+      :width="800"
+      :height="800"
+      >
+      <Monitoring/>
+    </modal>
+    <div class="mb">
       <button @click="show">Monitor</button>
     </div>
   </div>
@@ -90,7 +92,7 @@ export default {
   display: grid;
   width: 100%;
   height: 100%;
-  grid-template-rows: repeat(3, 33.333333%);
+  grid-template-rows: 30% 30% 30% 10%;
   grid-template-columns: repeat(5, 20%);
   grid-auto-flow: row;
   justify-items: center;
@@ -99,12 +101,13 @@ export default {
   border-radius: 25px;
   background: #FAFAFA;
 }
-.avatar {
-  width: 40%;
-  z-index: 30;
+.mb {
+  grid-row: 4;
+  grid-column: 4;
+  color: black;
 }
-.btns {
-  grid-row: 3;
+.lb {
+  grid-row: 4;
   grid-column: 5;
   color: black;
 }
