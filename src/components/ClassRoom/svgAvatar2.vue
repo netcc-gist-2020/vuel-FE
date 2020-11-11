@@ -8,7 +8,8 @@
     :eyeDir="eyeDir"
   >
   <div class="bav">
-    <BasicAvatar />
+    <BasicAvatar v-if="notPresent"/>
+    <Absenece v-else/>
     <div id="idcard">
       {{ userId }}
     </div>
@@ -29,12 +30,19 @@ export default {
     BasicAvatar
   },
 
+  methods: {
+    notPresent () {
+      return this.absence
+    }
+  },
+
   props: {
     userId: String,
     index: Number,
-    absence: String,
+    absence: Boolean,
     expression: String,
-    eyeDir: String
+    eyeDir: String,
+    isSpy: Boolean
   },
 
   mounted () {

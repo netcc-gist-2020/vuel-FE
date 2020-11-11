@@ -7,6 +7,7 @@
       :index="id"
       :absence="info[1].absence"
       :expression="info[1].expression"
+      :isSpy="info[1].isSpy"
       :eyeDir="info[1].eye_dir"
       :userId="info[0]"
     />

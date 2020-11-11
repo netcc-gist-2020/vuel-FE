@@ -13,8 +13,11 @@ export const avatarExpressionMixin = {
   methods: {
     my (selector) { return `.id_${this.userId} ${selector}` },
 
-    getExpression (expression, eyeDir) {
+    getExpression (expression, eyeDir, isSpy) {
       console.log('expression: ', expression)
+      if (isSpy) this.spy()
+      else this.notspy()
+
       if (eyeDir === 'left') this.lookLeft()
       else if (eyeDir === 'right') this.lookRight()
       else this.lookCenter()
