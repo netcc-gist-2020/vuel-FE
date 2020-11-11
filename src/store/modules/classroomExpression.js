@@ -32,14 +32,11 @@ const mutations = {
         expression: 'neutral',
         eye_dir: 'center',
         isSpy: false
-      } // TODO: 서버에서 줘야 하는 정보
+      }
     }
     console.log(state.guestList)
   },
   addNewUser (state, userId, info = { absence: false, expression: 'neutral', eye_dir: 'center', isSpy: false }) {
-    // TODO: expression은 서버에서 줘야 하는 정보
-    // state.guestList[userId] = expression
-
     state.guestList[userId] = info
 
     state.guestList = {
