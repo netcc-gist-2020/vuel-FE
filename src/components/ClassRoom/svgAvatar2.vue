@@ -33,7 +33,7 @@ export default {
     Absence
   },
 
-  methods: {
+  computed: {
     isPresent () {
       return !(this.absence)
     }
