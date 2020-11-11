@@ -68,7 +68,7 @@ const mutations = {
     userInfo.absence = newInfo.absence ? newInfo.absence : userInfo.absence
     userInfo.expression = newInfo.expression ? newInfo.expression : userInfo.expression
     userInfo.eye_dir = newInfo.eye_dir ? newInfo.eye_dir : userInfo.eye_dir
-    userInfo.isSpy = newIfo.isSpy ? newInfo.isSpy : userInfo.isSpy
+    userInfo.isSpy = newInfo.isSpy ? newInfo.isSpy : userInfo.isSpy
 
     state.guestList = {
       ...state.guestList

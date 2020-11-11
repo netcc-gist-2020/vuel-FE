@@ -9,7 +9,7 @@
     :isSpy="isSpy"
   >
   <div class="bav">
-    <BasicAvatar v-if="notPresent"/>
+    <BasicAvatar v-if="isPresent"/>
     <Absence v-else/>
     <div id="idcard">
       {{ userId }}
@@ -34,8 +34,8 @@ export default {
   },
 
   methods: {
-    notPresent () {
-      return this.absence
+    isPresent () {
+      return !(this.absence)
     }
   },
 
