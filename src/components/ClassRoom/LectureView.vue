@@ -12,6 +12,7 @@
         @change="selectSource"
         @click="getSources"
         label="Select"
+        dense
         outlined
       ></v-select>
     </div>
