@@ -4,9 +4,10 @@ export const avatarExpressionMixin = {
   props: {
     userId: String,
     index: Number,
-    absence: String,
+    absence: Boolean,
     expression: String,
-    eyeDir: String
+    eyeDir: String,
+    isSpy: Boolean
   },
 
   methods: {
@@ -75,6 +76,16 @@ export const avatarExpressionMixin = {
       gsap.to(this.my('#norm_right'), { duration: at, morphSVG: this.my('#happy_right') })
       gsap.to(this.my('#norm_left'), { duration: at, morphSVG: this.my('#happy_left') })
       gsap.to(this.my('#mouth_center'), { duration: at, morphSVG: this.my('#mouth_happy') })
+    },
+    spy () {
+      const at = 0.3
+      console.log('I am Spy')
+      gsap.fromTo('#Spy', { opacity: 0 }, { opacity: 1, duration: at })
+    },
+    notspy () {
+      const at = 0.3
+      console.log('I am not Spy')
+      gsap.fromTo('#Spy', { opacity: 1 }, { opacity: 0, duration: at })
     }
   },
   watch: {

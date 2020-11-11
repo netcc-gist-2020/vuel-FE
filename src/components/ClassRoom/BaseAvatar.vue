@@ -21,9 +21,10 @@ export default {
   props: {
     userId: String,
     index: Number,
-    absence: String,
+    absence: Boolean,
     expression: String,
-    eyeDir: String
+    eyeDir: String,
+    isSpy: Boolean
   },
   methods: {
     click (arg) {

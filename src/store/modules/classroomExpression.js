@@ -28,14 +28,15 @@ const mutations = {
     state.guestList = { ...state.guestList }
     for (var i = 0; i < otherUsers.length; i++) {
       state.guestList[otherUsers[i]] = {
-        absence: 'present',
+        absence: false,
         expression: 'neutral',
-        eye_dir: 'center'
+        eye_dir: 'center',
+        isSpy: false
       } // TODO: 서버에서 줘야 하는 정보
     }
     console.log(state.guestList)
   },
-  addNewUser (state, userId, info = { absence: 'present', expression: 'neutral', eye_dir: 'center' }) {
+  addNewUser (state, userId, info = { absence: false, expression: 'neutral', eye_dir: 'center', isSpy: false }) {
     // TODO: expression은 서버에서 줘야 하는 정보
     // state.guestList[userId] = expression
 
