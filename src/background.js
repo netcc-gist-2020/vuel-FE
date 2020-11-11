@@ -20,6 +20,7 @@ app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors');
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
+    // fullscreen: true,
     width: 1280,
     height: 800,
     webPreferences: {

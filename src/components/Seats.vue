@@ -1,76 +1,116 @@
 <template>
-  <v-container fluid class="seats">
-    <v-row justify="center">
-      <AvatarDummy v-for="(info, id) in guests" :key="info[0]" :index="id" :absence="info[1].absence" :expression="info[1].expression" :eyeDir="info[1].eye_dir" :userId="info[0]"/>
-      <v-row justify="end" align="end" class="desk">
-          <v-btn class="ma-3"> MUTE </v-btn>
-          <v-btn class="ma-3"> AUTH </v-btn>
-          <v-btn class="ma-3" color="error" @click="leave"> LEAVE </v-btn>
-      </v-row>
-    </v-row>
-
-  </v-container>
+  <div class="seats">
+    <svgAvatar2
+      class="avatar"
+      v-for="(info, id) in guests"
+      :key="info[0]"
+      :index="id"
+      :absence="info[1].absence"
+      :expression="info[1].expression"
+      :isSpy="info[1].isSpy"
+      :eyeDir="info[1].eye_dir"
+      :userId="info[0]"
+    />
+    <div class="lb">
+      <button @click=leave>Leave</button>
+    </div>
+    <modal name="monitoring"
+      :adaptive="true"
+      :width="800"
+      :height="800"
+      >
+      <Monitoring/>
+    </modal>
+    <div class="mb">
+      <button @click="show">Monitor</button>
+    </div>
+  </div>
 </template>
 
 <script>
-// import Avatar from '@/components/Avatar'
-import AvatarDummy from '@/components/AvatarDummy'
+
+import { expressionMixin } from '@/mixins/expressionMixin.js'
+import svgAvatar2 from '@/components/ClassRoom/svgAvatar2'
 import router from '@/router'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import Monitoring from '@/components/ClassRoom/Monitoring'
 
 export default {
   name: 'Seats',
+  mixins: [expressionMixin],
   components: {
-    // Avatar
-    AvatarDummy
+    svgAvatar2,
+    Monitoring
   },
-  props: ['socket2'],
   data: () => ({
-    guests: []
+    modal: false
   }),
   methods: {
+    ...mapActions(['leaveRoom']),
     leave () {
       const closingMessage = { type: 'close', data: { key: this.$store.state.myID } }
       this.socket2.send(JSON.stringify(closingMessage))
+      this.socket2.close()
+      this.leaveRoom()
       router.push('mypage')
+    },
+    showGuests () {
+      console.log(this.guests)
+    },
+    show () {
+      this.$modal.show('monitoring')
+    },
+    hide () {
+      this.$modal.hide('monitoring')
     }
   },
   computed: {
-    // get_guestList () { return this.$store.getters.getUserList }
-    ...mapGetters({
-      guestList: 'getUserList'
-    })
-  },
-  watch: {
-    guestList (val) {
-      console.log(val)
-      this.guests = Object.keys(val).map(function (key) {
-        return [String(key), val[key]]
-      })
+    ...mapGetters(['getUserList']),
+    guests () {
+      return Object.keys(this.getUserList).map(key => {
+        return [String(key), this.getUserList[key]]
+      }).sort()
     }
   },
+  watch: {
+  },
+
   mounted () {
-    // this.guestList = this.$store.getters.getUserList
     console.log(this.guestList)
   }
 }
 </script>
 
 <style scoped>
+* {
+  max-width: 100%;
+  max-height: 100%;
+}
 .seats {
-  background: #f1f1f1;
-  position: relative;
-  border-radius: 30px;
-  overflow: hidden;
-  min-height: 280px;
-}
-.desk {
-  position: absolute;
-  bottom: 0;
-  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  padding: 0 auto;
+  display: grid;
   width: 100%;
-  height: 65px;
-  background: #CCB099;
+  height: 100%;
+  grid-template-rows: 30% 30% 30% 10%;
+  grid-template-columns: repeat(5, 20%);
+  grid-auto-flow: row;
+  justify-items: center;
+  border-style: solid;
+  border-color: #FAFAFA;
+  border-radius: 25px;
+  background: #FAFAFA;
 }
-
+.mb {
+  grid-row: 4;
+  grid-column: 4;
+  color: black;
+}
+.lb {
+  grid-row: 4;
+  grid-column: 5;
+  color: black;
+}
 </style>

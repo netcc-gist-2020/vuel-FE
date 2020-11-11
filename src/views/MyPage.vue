@@ -1,54 +1,89 @@
 <template>
-  <v-container>
+  <v-container id="mypage">
     <v-row>
-      <v-col cols="4">
-        <h1>Changa Lee</h1>
-        <v-row>
-          <v-btn text>Profile</v-btn>
+      <v-col class="left-col" cols="4">
+        <h1 class="mb-4">{{ getUserName }}</h1>
+        <v-row class="my-2">
+          <v-btn @click="beHost" text>Profile</v-btn>
         </v-row>
-        <v-row>
+        <v-row class="my-2">
           <v-btn text>Class</v-btn>
         </v-row>
-        <v-row>
+        <v-row class="my-2">
           <v-btn text>Avatar</v-btn>
         </v-row>
       </v-col>
 
       <v-col cols="4">
-        <v-row></v-row>
-        <v-row>
-          <v-form>
-            <p>Classroom ID</p>
-            <v-text-field placeholder="Enter" filled>
-            </v-text-field>
-            <v-btn
-              @click="setClassRoomID"
-              color="success"
-            >
-              <router-link to="/classroom">
-                JOIN
-              </router-link>
-            </v-btn>
-          </v-form>
-        </v-row>
+        <v-container class="mid-col mt-n10">
+            <img
+              class="profile-image mb-16"
+              :src="pictureURL"
+            />
+            <v-form>
+              <p>Classroom ID</p>
+              <v-text-field
+                max-width="320px"
+                width="100%"
+                height="48px"
+                placeholder="Enter"
+                min-height="48px"
+                filled
+              ></v-text-field>
+              <v-btn
+                @click="joinRoom"
+                color="#31D0AA"
+                dark
+                max-width="320px"
+                width="320px"
+                height="48px"
+              >
+                  JOIN
+              </v-btn>
+            </v-form>
+        </v-container>
       </v-col>
 
-      <v-col cols="4">
-      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-// @ is an alias to /src
+import router from '@/router'
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'MyPage',
-  components: {
+  data: () => ({
+    pictureURL: null
+  }),
+  computed: {
+    ...mapGetters([
+      'getUserName',
+      'getAmIHost',
+      'getPictureBlob'
+    ])
   },
   methods: {
-    setClassRoomID () {
+    ...mapActions([
+      'setAmIHost'
+    ]),
+
+    joinRoom () {
       this.$store.state.classRoomID = this.$el.querySelector('input').value
+      router.push('/classroom')
+    },
+
+    beHost () {
+      this.setAmIHost(true)
+      console.log('am i host? ', this.getAmIHost)
     }
+  },
+
+  mounted () {
+    this.pictureURL = URL.createObjectURL(this.getPictureBlob)
+
+    console.log(this.pictureURL)
   }
   // For testing
   // mounted () {
@@ -65,3 +100,48 @@ export default {
   // }
 }
 </script>
+
+<style scoped>
+.left-col h1 {
+  font-size: 3em;
+}
+
+.left-col button {
+  font-size: 2em;
+}
+
+p {
+  font-weight: bold;
+}
+
+#mypage {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+#mypage > .row {
+  height: 100%;
+}
+
+.mid-col {
+  height: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-image {
+  object-fit: cover;
+  width: 30vw;
+  height: 30vw;
+  border-radius: 50%;
+  box-shadow: 0px 4px 8px -2px rgba(0, 0, 0, 0.6);
+}
+
+.v-text-field--filled > .v-input__control > .v-input__slot {
+  min-height: 48px;
+}
+</style>

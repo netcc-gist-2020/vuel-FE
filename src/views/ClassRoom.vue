@@ -1,165 +1,105 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="8">
-        <img src="../assets/ClassVideo.png">
-      </v-col>
-      <v-col cols="4">
-        <v-row style="height: 50%; overflow: hidden;">
-          <Video :mediaStream="hostStream"/>
-        </v-row>
-        <v-row style="height: 50%">
-          <ChatRoom/>
-        </v-row>
-      </v-col>
-    </v-row>
-    <v-row>
-      <Seats :socket2="socket2"/>
-    </v-row>
-  </v-container>
+  <div class="section">
+    <div class="container">
+      <div class="item i1">
+        <Video :mediaStream="hostStream" :toReverse="true"/>
+      </div>
+      <div class="item i2">
+        <fullscreen class="lectureViewWrapper" ref="fullscreen" @change="fullscreenChange">
+          <LectureView/>
+          <button class="fsbtn" type="button" @click="toggle" >Fullscreen</button>
+        </fullscreen>
+      </div>
+      <div class="item i3">
+        <Seats/>
+      </div>
+    </div>
+  </div>
 </template>
-
 <script>
-import ChatRoom from '@/components/ChatRoom'
+import { hostVideoMixin } from '@/mixins/hostVideoMixin.js'
+// import { expressionMixin } from '@/mixins/expressionMixin.js'
 import Seats from '@/components/Seats'
+import { classRoomMixin } from '@/mixins/classRoomMixin.js'
 import Video from '@/components/Video'
-import io from 'socket.io-client'
-import Peer from 'peerjs'
-// import WebSocket from 'ws'
+import LectureView from '@/components/ClassRoom/LectureView'
 
 export default {
   name: 'ClassRoom',
-  data: () => ({
-    hostStream: null,
-    myStream: null,
-    socket: io.connect('http://116.89.189.14:3000'),
-    socket2: new WebSocket('ws://116.89.189.44:30003'),
-    faceExpSocket: new WebSocket('ws://localhost:3000'),
-    myPeer: new Peer(undefined, {
-      host: '116.89.189.14',
-      port: '3001'
-    })
-  }),
+  mixins: [hostVideoMixin, classRoomMixin],
+  data () {
+    return {
+      fullscreen: false,
+      modal: false,
+      message: ''
+    }
+  },
   methods: {
-    connectToNewUser (userId, stream) {
-      const call = this.myPeer.call(userId, stream)
-      console.log('I\'m calling ' + userId)
-
-      call.on('stream', userVideoStream => {
-      })
-
-      call.on('close', () => {
-      })
+    toggle () {
+      this.$refs.fullscreen.toggle()
+    },
+    fullscreenChange (fullscreen) {
+      this.fullscreen = fullscreen
     }
   },
   components: {
-    ChatRoom,
     Seats,
-    Video
+    Video,
+    LectureView
+  },
+  computed: {
   },
   mounted () {
-    const ROOM_ID = this.$store.state.classRoomID
-    this.myPeer.on('open', id => {
-      this.socket.emit('join-room', ROOM_ID, id)
-    })
-
-    this.socket.on('user-connected', userId => {
-      console.log(userId + ' user is connected')
-      if (this.$store.state.amIHost === true) {
-        console.log('hey')
-        this.connectToNewUser(userId, this.myStream)
-      }
-    }
-    )
-
-    this.socket2.onopen = () => {
-      const openingMessage = { type: 'open', data: 'hello' }
-      this.socket2.send(JSON.stringify(openingMessage))
-      const vm = this
-      this.socket2.onmessage = function (event) {
-        const message = JSON.parse(event.data)
-        // console.log(message)
-        const { type, data } = message
-        switch (type) {
-          case 'welcome':
-            console.log('Welcome!')
-            vm.$store.commit('setMyID', data.key) // TODO: set
-            vm.$store.commit('getUsers', data.keys)
-            break
-          case 'enter':
-            vm.$store.commit('addNewUser', data.key)
-            break
-          case 'bye':
-            vm.$store.commit('removeUser', data.key)
-            break
-          case 'exp':
-            console.log('Expression changed: ' + data)
-            vm.$store.commit('changeExpression', data)
-            break
-        }
-      }
-    }
-    this.faceExpSocket.onopen = () => {
-      let faceExpMsg = { type: 'exp' }
-      const vm = this
-      this.faceExpSocket.onmessage = function (event) {
-        const message = JSON.parse(event.data)
-        faceExpMsg = {
-          ...faceExpMsg,
-          data: {
-            key: vm.$store.getters.getMyID,
-            ...message
-          }
-        }
-        // console.log('Face expression message: ')
-        // console.log(faceExpMsg) // 잘 됨
-        vm.socket2.send(JSON.stringify(faceExpMsg))
-      }
-    }
-
-    this.myPeer.on('call', call => {
-      console.log('I got a call')
-      call.answer(this.myStream)
-      console.log('And I answered with ' + this.myStream)
-      call.on('stream', hostVideoStream => {
-        this.hostStream = hostVideoStream
-        console.log('I got a stream')
-      })
-    })
-
-    if (this.$store.state.amIHost === true) {
-      navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true
-      }).then(stream => {
-        this.myStream = stream
-        this.hostStream = this.myStream
-      })
-    } else {
-      navigator.mediaDevices.getUserMedia({
-        video: false,
-        audio: true
-      }).then(stream => {
-        this.myStream = stream
-      })
-    }
-  },
-
-  beforeDestroy () {
-    this.myStream.getTracks().forEach(track => {
-      track.stop()
-    })
   }
 }
 </script>
 
 <style scoped>
-video {
+* {
+  max-width: 100%;
+  max-height: 100%;
+}
+.section {
+  max-width: 100%;
+  max-height: 100%;
   width: 100%;
   height: 100%;
 }
+.container {
 
-img {
+  margin: 0 auto;
+  padding: 0 auto;
+  display: grid;
   width: 100%;
+  height: 100%;
+  grid-template-rows: repeat(3, 32%);
+  grid-template-columns: repeat(2, 50%);
+  grid-auto-flow: row;
+}
+.item:nth-child(3) {
+  grid-row: span 2;
+  grid-column: span 2;
+}
+.i1 {
+  padding: 4%;
+}
+.i2 {
+  position: relative;
+  padding: 4%;
+}
+.lectureViewWrapper {
+  height: 100%;
+}
+
+.fsbtn {
+  position: absolute;
+  margin-right: 8px;
+}
+
+button {
+  display: block;
+  bottom: 0px;
+  right: 0px;
+  color: black;
 }
 </style>
