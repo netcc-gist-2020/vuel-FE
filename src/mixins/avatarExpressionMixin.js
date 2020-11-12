@@ -78,23 +78,20 @@ export const avatarExpressionMixin = {
     },
     spy () {
       console.log('I am Spy')
-      gsap.fromTo(this.my('#Spy'), { opacity: 0 }, { opacity: 1, duration: this.at })
+      gsap.to(this.my('#Spy'), { opacity: 1, duration: this.at })
     },
     notspy () {
       console.log('I am not Spy')
-      gsap.fromTo(this.my('#Spy'), { opacity: 1 }, { opacity: 0, duration: this.at })
+      gsap.to(this.my('#Spy'), { opacity: 0, duration: this.at })
     }
   },
   watch: {
     expression (exp) {
       // console.log('Expression for svg avatar is: ' + exp)
-      this.getExpression(exp, this.eyeDir, this.isSpy)
+      this.getExpression(exp, this.eyeDir)
     },
     eyeDir (edir) {
-      this.getExpression(this.expression, edir, this.isSpy)
-    },
-    isSpy (sspy) {
-      this.getExpression(this.expression, this.eyeDir, sspy)
+      this.getExpression(this.expression, edir)
     }
   },
   mounted () {

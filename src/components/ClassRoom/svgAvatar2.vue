@@ -11,7 +11,6 @@
   <div class="bav">
     <Absence v-if="absence"/>
     <BasicAvatar v-else />
-
     <div id="idcard">
       {{ userId }}
     </div>

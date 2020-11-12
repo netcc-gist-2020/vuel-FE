@@ -50,7 +50,7 @@ export default {
     leave () {
       const closingMessage = { type: 'close', data: { key: this.$store.state.myID } }
       this.socket2.send(JSON.stringify(closingMessage))
-      //this.socket2.close()
+      // this.socket2.close()
       this.leaveRoom()
       router.push('mypage')
     },

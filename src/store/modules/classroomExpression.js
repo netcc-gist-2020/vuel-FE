@@ -62,10 +62,10 @@ const mutations = {
 
     console.log('guestList: ', state.guestList)
 
-    userInfo.absence = newInfo.absence ? newInfo.absence : userInfo.absence
+    userInfo.absence = newInfo.absence
     userInfo.expression = newInfo.expression ? newInfo.expression : userInfo.expression
     userInfo.eye_dir = newInfo.eye_dir ? newInfo.eye_dir : userInfo.eye_dir
-    userInfo.isSpy = newInfo.isSpy ? newInfo.isSpy : userInfo.isSpy
+    userInfo.isSpy = newInfo.isSpy
 
     state.guestList = {
       ...state.guestList
