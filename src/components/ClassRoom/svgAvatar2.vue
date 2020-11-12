@@ -9,8 +9,9 @@
     :isSpy="isSpy"
   >
   <div class="bav">
-    <Absence v-show="absence === true"/>
-    <BasicAvatar />
+    <Absence v-if="absence"/>
+    <BasicAvatar v-else />
+
     <div id="idcard">
       {{ userId }}
     </div>
