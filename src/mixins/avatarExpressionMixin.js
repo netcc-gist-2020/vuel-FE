@@ -87,11 +87,14 @@ export const avatarExpressionMixin = {
   },
   watch: {
     expression (exp) {
-      console.log('Expression for svg avatar is: ' + exp)
-      this.getExpression(exp, this.eyeDir)
+      // console.log('Expression for svg avatar is: ' + exp)
+      this.getExpression(exp, this.eyeDir, this.isSpy)
     },
     eyeDir (edir) {
-      this.getExpression(this.expression, edir)
+      this.getExpression(this.expression, edir, this.isSpy)
+    },
+    isSpy (sspy) {
+      this.getExpression(this.expression, this.eyeDir, sspy)
     }
   },
   mounted () {
