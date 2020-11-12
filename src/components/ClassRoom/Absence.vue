@@ -17,3 +17,9 @@
     </defs>
     </svg>
 </template>
+<style scoped>
+svg {
+    width: 12em;
+    height: 12em;
+}
+</style>
