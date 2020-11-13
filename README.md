@@ -35,3 +35,7 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Dependencies
+GSAP (License is required)
+If you don't have GSAP Plugins license, go branch devWOgsap but classroom avatar animation will be not functioning.
