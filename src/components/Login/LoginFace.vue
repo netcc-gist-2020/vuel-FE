@@ -92,7 +92,7 @@ export default {
 
       formData.append('user-face', blob)
       formData.append('meta-data', JSON.stringify({
-        'user-name': this.getUserName
+        name: this.getUserName
       }))
 
       const config = {

@@ -113,7 +113,7 @@ export default {
 
       formData.append('user-face', blob)
       formData.append('meta-data', JSON.stringify({
-        'user-name': this.name
+        name: this.name
       }))
 
       console.log('signing up ' + this.name)
