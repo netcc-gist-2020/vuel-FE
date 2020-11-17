@@ -53,7 +53,9 @@ svg {
 .happy, .sleepy, #face_right, #face_left, .nose2, .mouth2 {
     visibility:hidden;
 }
-
+#Spy {
+  opacity: 0;
+}
 .wrap {
     display: inline-flex;
     top: 10%;

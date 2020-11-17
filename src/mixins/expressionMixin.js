@@ -93,9 +93,9 @@ export const expressionMixin = {
   },
 
   beforeDestroy () {
-    const closingMessage = { type: 'close', data: { key: this.$store.state.myID } }
-    this.socket2.send(JSON.stringify(closingMessage))
-    this.socket2.close()
+    // const closingMessage = { type: 'close', data: { key: this.$store.state.myID } }
+    // this.socket2.send(JSON.stringify(closingMessage))
+    // this.socket2.close()
 
     if (this.getAmIHost) {
       this.monitoringSocket.send(JSON.stringify('cancel'))

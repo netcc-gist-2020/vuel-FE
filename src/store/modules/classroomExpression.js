@@ -32,14 +32,11 @@ const mutations = {
         expression: 'neutral',
         eye_dir: 'center',
         isSpy: false
-      } // TODO: 서버에서 줘야 하는 정보
+      }
     }
     console.log(state.guestList)
   },
   addNewUser (state, userId, info = { absence: false, expression: 'neutral', eye_dir: 'center', isSpy: false }) {
-    // TODO: expression은 서버에서 줘야 하는 정보
-    // state.guestList[userId] = expression
-
     state.guestList[userId] = info
 
     state.guestList = {
@@ -65,10 +62,10 @@ const mutations = {
 
     console.log('guestList: ', state.guestList)
 
-    userInfo.absence = newInfo.absence ? newInfo.absence : userInfo.absence
+    userInfo.absence = newInfo.absence
     userInfo.expression = newInfo.expression ? newInfo.expression : userInfo.expression
     userInfo.eye_dir = newInfo.eye_dir ? newInfo.eye_dir : userInfo.eye_dir
-    userInfo.isSpy = newIfo.isSpy ? newInfo.isSpy : userInfo.isSpy
+    userInfo.isSpy = newInfo.isSpy
 
     state.guestList = {
       ...state.guestList
