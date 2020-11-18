@@ -9,8 +9,9 @@
     :isSpy="isSpy"
   >
   <div class="bav">
-    <Absence v-if="absence"/>
-    <BasicAvatar v-else />
+    <!-- <Absence v-if="absence"/> -->
+    <!-- <BasicAvatar v-else /> -->
+    <BasicAvatar />
     <div id="idcard">
       {{ userId }}
     </div>
@@ -22,15 +23,15 @@
 <script>
 import BaseAvatar from '@/components/ClassRoom/BaseAvatar'
 import BasicAvatar from '@/components/ClassRoom/BasicAvatar'
-import Absence from '@/components/ClassRoom/Absence'
+// import Absence from '@/components/ClassRoom/Absence'
 
 export default {
   name: 'SvgAvatar2',
 
   components: {
     BaseAvatar,
-    BasicAvatar,
-    Absence
+    BasicAvatar
+    // Absence
   },
 
   props: {
