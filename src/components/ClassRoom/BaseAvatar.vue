@@ -50,7 +50,7 @@ svg {
 #saliva {
     opacity: 0%;
 }
-.happy, .sleepy, #face_right, #face_left, .nose2, .mouth2 {
+.happy, .sleepy, #face_right, #face_left, .nose2, .mouth2, .absence {
     visibility:hidden;
 }
 #Spy {

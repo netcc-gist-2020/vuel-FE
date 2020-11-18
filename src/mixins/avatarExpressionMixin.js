@@ -16,18 +16,22 @@ export const avatarExpressionMixin = {
   methods: {
     my (selector) { return `.id_${this.userId} ${selector}` },
 
-    getExpression (expression, eyeDir, isSpy) {
+    getExpression (expression, eyeDir, isSpy, absence) {
       console.log('expression: ', expression)
-      if (isSpy) this.spy()
-      else this.notspy()
+      if (absence) this.Absence()
+      else {
+        this.Present()
+        if (isSpy) this.spy()
+        else this.notspy()
 
-      if (eyeDir === 'left') this.lookLeft()
-      else if (eyeDir === 'right') this.lookRight()
-      else this.lookCenter()
+        if (eyeDir === 'left') this.lookLeft()
+        else if (eyeDir === 'right') this.lookRight()
+        else this.lookCenter()
 
-      if (expression === 'happy') this.happy()
-      else if (expression === 'sleepy') this.sleepy()
-      else this.normal()
+        if (expression === 'happy') this.happy()
+        else if (expression === 'sleepy') this.sleepy()
+        else this.normal()
+      }
     },
     rmSaliva () {
       gsap.to(this.my('#saliva'), { opacity: 0, duration: 0.1 })
@@ -83,18 +87,29 @@ export const avatarExpressionMixin = {
     notspy () {
       console.log('I am not Spy')
       gsap.to(this.my('#Spy'), { opacity: 0, duration: this.at })
+    },
+    Absence () {
+      gsap.to(this.my('.absence'), { opacity: 1, duration: this.at })
+      gsap.to(this.my('.present'), { opacity: 0, duration: this.at })
+    },
+    Present () {
+      gsap.to(this.my('.absence'), { opacity: 0, duration: this.at })
+      gsap.to(this.my('.present'), { opacity: 1, duration: this.at })
     }
   },
   watch: {
     expression (exp) {
       // console.log('Expression for svg avatar is: ' + exp)
-      this.getExpression(exp, this.eyeDir, this.isSpy)
+      this.getExpression(exp, this.eyeDir, this.isSpy, this.absence)
     },
     eyeDir (edir) {
-      this.getExpression(this.expression, edir, this.isSpy)
+      this.getExpression(this.expression, edir, this.isSpy, this.absence)
     },
     isSpy (sspy) {
-      this.getExpression(this.expression, this.eyeDir, sspy)
+      this.getExpression(this.expression, this.eyeDir, sspy, this.absence)
+    },
+    absence (abs) {
+      this.getExpression(this.expression, this.eyeDir, this.isSpy, abs)
     }
   },
   mounted () {
