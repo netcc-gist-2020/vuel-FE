@@ -18,9 +18,9 @@ export const avatarExpressionMixin = {
 
     getExpression (expression, eyeDir, isSpy, absence) {
       console.log('expression: ', expression)
-      if (absence) this.absence()
+      if (absence) this.Absence()
       else {
-        this.present()
+        this.Present()
         if (isSpy) this.spy()
         else this.notspy()
 
@@ -88,11 +88,11 @@ export const avatarExpressionMixin = {
       console.log('I am not Spy')
       gsap.to(this.my('#Spy'), { opacity: 0, duration: this.at })
     },
-    absence () {
+    Absence () {
       gsap.to(this.my('.absence'), { opacity: 1, duration: this.at })
       gsap.to(this.my('.present'), { opacity: 0, duration: this.at })
     },
-    present () {
+    Present () {
       gsap.to(this.my('.absence'), { opacity: 0, duration: this.at })
       gsap.to(this.my('.present'), { opacity: 1, duration: this.at })
     }
